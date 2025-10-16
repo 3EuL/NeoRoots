@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.nav{
+    
+    background-color: rgba(0, 0, 0, 0.9);
+    
+}
+
+.nav nav{
+    margin: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav img{
+    width: 5%;
+    height:2.5%;
+}
+
+.nav ul li{
+
+    list-style: none;
+    color: aliceblue;
+    
+    text-transform: uppercase;
+    font-size: small;
+
+}
+
+#Home{
+
+    margin-top: 20px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#Home .hub{
+    
+    font-family: "Josefin Sans", sans-serif;
+    height: 200px;
+    width: 420px;
+    background-color: #0A872C;
+    flex-direction: column;
+    display: flex;
+    text-transform: uppercase;
+    align-items: center;
+    flex-direction: column;
+    color: #FFFF;
+    
+    
+}
+.hub h1{
+
+    font-size: 48px;
+}
+.hub h2{
+
+    font-size: 20px;
+}
+.hub .btns{
+    align-items: center;
+    justify-content: center;
+}
+.hub .btns button{
+    
+    font-size: 32px;
+    text-transform: uppercase;
+    border-radius: 68px;
+    border: transparent;
+    
+}
+.hub .btns .start{
+
+    background-color: #8BF3A6;
+    font-size: 32px;
+    height: 50px;
+    width: 170px;
+}
+.hub .btns .reports{
+
+    background-color: #8BF3A6;
+    font-size: 32px;
+    height: 50px;
+    width: 205px;
+}
