@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.nav{
+    
+    background-color: rgba(0, 0, 0, 0.9);
+    
+}
+
+.nav nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav img{
+    width: 10%;
+    height:5%;
+}
+
+.nav ul li{
+
+    list-style: none;
+    color: aliceblue;
+    
+    text-transform: uppercase;
+    font-size: small;
+
+}
