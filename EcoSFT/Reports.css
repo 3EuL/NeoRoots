@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.nav{
+    
+    background-color: rgba(0, 0, 0, 0.9);
+    
+}
+
+.nav nav{
+    margin: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav img{
+    width: 5%;
+    height:2.5%;
+}
+
+.nav ul li a{
+
+    color: aliceblue;
+    font-family: "Josefin Sans", sans-serif ;
+    text-transform: uppercase;
+    font-size: small;
+    text-decoration: none;
+    transition: .5s;
+
+}
+
+.nav ul li a:hover{
+    
+    cursor: pointer;
+    color: #8BF3A6;
+    transform: scale(90%);
+}
+
+#Reports{
+    background-color: rgb(105, 181, 98);
+}
+
+#Reports .sidebar{
+    background-color: rgb(71, 70, 70);
+    height: 100vh;
+    width: 200px;
+    display: grid;
+}
+

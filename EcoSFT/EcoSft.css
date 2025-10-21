@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    
 }
 
 .nav{
@@ -21,22 +22,34 @@
     height:2.5%;
 }
 
-.nav ul li{
+.nav ul li a{
 
-    list-style: none;
     color: aliceblue;
-    
+    font-family: "Josefin Sans", sans-serif ;
     text-transform: uppercase;
     font-size: small;
+    text-decoration: none;
+    transition: .5s;
 
+}
+
+.nav ul li a:hover{
+    
+    cursor: pointer;
+    color: #8BF3A6;
+    transform: scale(90%);
 }
 
 #Home{
 
-    margin-top: 20px;
-    align-items: center;
+    height: 100vh;
+    background:  url("https://c.pxhere.com/photos/f6/d2/canola_fields_green_rolling_hills_agriculture_farm_landscape_crop_summer-1361384.jpg!d") ;
+    background-size: cover;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+   justify-content: center;
+   
+    
 }
 
 #Home .hub{
@@ -47,44 +60,55 @@
     background-color: #0A872C;
     flex-direction: column;
     display: flex;
+    justify-content: center;
     text-transform: uppercase;
     align-items: center;
     flex-direction: column;
     color: #FFFF;
+    border-radius: 10px;
+    
+
     
     
 }
 .hub h1{
+font-size: 48px;
+margin-bottom: 10px;
 
-    font-size: 48px;
 }
+
 .hub h2{
-
-    font-size: 20px;
+    font-size: 15px;
 }
+
 .hub .btns{
     align-items: center;
     justify-content: center;
 }
+
 .hub .btns button{
-    
-    font-size: 32px;
+
     text-transform: uppercase;
     border-radius: 68px;
     border: transparent;
+
     
 }
 .hub .btns .start{
 
     background-color: #8BF3A6;
     font-size: 32px;
-    height: 50px;
-    width: 170px;
+    height: px;
+    width: 200px;
+    transition: .5s;
+    font-weight: 700;
+    margin-top: 10px;
+    color: #054e19;
 }
-.hub .btns .reports{
 
-    background-color: #8BF3A6;
-    font-size: 32px;
-    height: 50px;
-    width: 205px;
+.hub .btns .start:hover{
+    cursor: pointer;
+    color: #8BF3A6;
+    background-color: #054e19;
+    transform: translateY(-5%);
 }
