@@ -14,29 +14,28 @@
     
 }
 
-nav{
+.nav nav{
     margin: 10;
     display: flex;
+    gap: 10px   ;
     align-items: center;
-    justify-content: space-around;
-    gap: 20px;
-    
+    justify-content: center;
 }
-nav img{
+
+.nav img{
     width: 5%;
     height:2.5%;
     margin-right: auto;
     
 }
 
-nav ul{
+.nav ul{
     list-style: none;
     margin: 0;
     padding: 0;
-    justify-content: space-evenly;
 }
 
-nav ul li a{
+.nav ul li a{
 
     color: aliceblue;
     font-family: "Josefin Sans", sans-serif ;
@@ -47,7 +46,7 @@ nav ul li a{
 
 }
 
-nav ul li a:hover{
+.nav ul li a:hover{
     
     cursor: pointer;
     color: #8BF3A6;
@@ -93,33 +92,34 @@ margin-bottom: 10px;
 
 .hub h2{
     font-size: 15px;
-
 }
 
-a{
-    display: flex;
-    align-items: flex-end;
+.hub .btns{
+    align-items: center;
     justify-content: center;
 }
 
-a.start {
+.hub .btns button{
 
-    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 68px;
+    border: transparent;
+
+    
+}
+.hub .btns .start{
+
+    background-color: #8BF3A6;
+    font-size: 32px;
+    height: px;
+    width: 200px;
     transition: .5s;
     font-weight: 700;
     margin-top: 10px;
     color: #054e19;
-    background-color: #8BF3A6;
-    font-size: 32px;
-    height: 40px;
-    width: 200px;
-    text-transform: uppercase;
-    border-radius: 68px;
-    border: transparent;
-   
 }
 
-a.start:hover{
+.hub .btns .start:hover{
     cursor: pointer;
     color: #8BF3A6;
     background-color: #054e19;
