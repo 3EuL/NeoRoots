@@ -1,0 +1,76 @@
+
+
+body{
+
+    height: 100vh;
+    background:  url("https://c.pxhere.com/photos/f6/d2/canola_fields_green_rolling_hills_agriculture_farm_landscape_crop_summer-1361384.jpg!d") ;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+   
+    
+}
+
+.hub{
+    font-family: "Josefin Sans", sans-serif;
+    height: fit-content;
+    width: 400px;
+    background-color: #0A872C;
+    text-transform: uppercase;
+    color: #FFFF;
+    border-radius: 2mm;
+    padding: 10px;
+}
+
+.hub .tittle{
+font-size: 48px;
+
+}
+
+.hub .data label{
+   font-size: 12px;
+   
+}
+
+.hub .data input{
+    width: 375px;
+    height: 30px;
+    margin: 5px;
+    border: transparent;
+    border-radius: 1em;
+    background-color: #D9D9D9;
+
+}
+
+.bottom{
+    font-size: 10px;
+}
+
+input{
+
+
+}
+
+.Login{
+    color: #E0EFE5;
+    text-decoration: none;
+    background-color: #285443;
+    border-radius: 1em;
+    transition: .5s;
+
+}
+
+.Login:hover{
+
+    cursor: pointer;
+    color: #285443;
+    background-color: #E0EFE5;
+    transform: translateY(-5%)
+
+}
+
+
+
+
