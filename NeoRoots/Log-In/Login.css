@@ -1,13 +1,92 @@
-
-
-body{
+body {
+margin: 0;
+padding: 0;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+font-family: "Josefin Sans", sans-serif;
 
     height: 100vh;
     background:  url("https://c.pxhere.com/photos/f6/d2/canola_fields_green_rolling_hills_agriculture_farm_landscape_crop_summer-1361384.jpg!d") ;
     background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    
+}
+
+
+.hub {
+display: flex;
+flex-direction: column;
+gap: 15px;
+width: 320px;
+padding: 25px;
+background: #0A872C;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+text-align: center;
+text-transform: uppercase;
+color: #FFFF;
+}
+
+
+.data {
+display: flex;
+flex-direction: column;
+gap: 10px;
+width: 100%;
+}
+
+.data label{
+    margin-right: auto;
+}
+
+
+input[type="text"] {
+padding: 10px;
+border-radius: 6px;
+border: 1px solid #ccc;
+font-size: 15px;
+}
+
+
+a{
+    margin-top: 5px;
+    padding: 10px; 
+    background-color: #285443;
+    margin: 10px;
+    border-radius: 6px;
+    transition: .5s;
+    font-size: medium;
+    font-weight: 600;
+    border: transparent;
+    text-transform: uppercase;
+    height: 20px;
+    color: #E0EFE5;
+    text-decoration: none;
+    transition: .5s;
+}
+
+a:hover{
+     cursor: pointer;
+    color: #285443;
+    background-color: #E0EFE5;
+    transform: translateY(-5%)
+    
+}
+
+
+#remember {
+margin-top: 10px;
+}
+
+
+.bottom {
+margin-top: 10px;
+}
+
+/*  
+body{
+
 
    
     
@@ -46,52 +125,15 @@ font-size: 48px;
 
 .bottom{
     font-size: 10px;
+    display: flex;
+    margin: 10px;
 }
 
-
-
-.Login {
-    background-color: #285443;
-    border-radius: 1em;
-    transition: .5s;
-    padding: auto;
-    font-size: medium;
-    font-weight: 600;
-    border: transparent;
-    text-transform: uppercase;
-    width: 400px;
-    justify-self: center;
-    height: 25px;
-    color: #E0EFE5;
- 
-    
-}
-.Login a{
-    color: #E0EFE5;
-    text-decoration: none;
-    transition: .5s;
-    background-color: #285443;
-    width: 400px;
+.data{
+    display: flex;
+    flex-direction: column;
 }
 
-.Login:hover{
-
-    cursor: pointer;
-    color: #285443;
-    background-color: #E0EFE5;
-    transform: translateY(-5%)
-    
-
-}
-.Login  a:hover{
-
-    cursor: pointer;
-    color: #285443;
-    background-color: #E0EFE5;
-    transform: translateY(-5%)
-    
-
-}
 
 
 

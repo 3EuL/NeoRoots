@@ -50,7 +50,7 @@ font-size: 48px;
 
 
 
-.Login {
+.Sign-In {
     background-color: #285443;
     border-radius: 1em;
     transition: .5s;
@@ -66,7 +66,7 @@ font-size: 48px;
  
     
 }
-.Login a{
+.Sign-In a{
     color: #E0EFE5;
     text-decoration: none;
     transition: .5s;
@@ -74,7 +74,7 @@ font-size: 48px;
     width: 400px;
 }
 
-.Login:hover{
+.Sign-In:hover{
 
     cursor: pointer;
     color: #285443;
@@ -83,7 +83,7 @@ font-size: 48px;
     
 
 }
-.Login  a:hover{
+.Sign-In  a:hover{
 
     cursor: pointer;
     color: #285443;
