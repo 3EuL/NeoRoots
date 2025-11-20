@@ -1,3 +1,9 @@
+body{
+    
+    background: url("../Images/pexels-silvana-palacios-2013790-3635870.jpg");
+    background-size: cover;
+}
+
 .view {
     min-height: 100vh;
     display: flex;
@@ -7,9 +13,8 @@
     text-align: center;
     text-transform: uppercase;
     color: #fff;
-     font-family: "Josefin Sans", sans-serif;
-    background: url("../Images/photo-1493673272479-a20888bcee10.jpg");
-    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }
 
 /* Contenedor interno centrado */
@@ -19,15 +24,13 @@
     align-items: center;
     justify-content: center;
     gap: 25px;
-    background: #fff;
+    backdrop-filter: blur(5px);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
     width: 350px;
     text-transform: uppercase;
     color: #fff;
-    background: #0A872C;
-    font-family: "Josefin Sans", sans-serif;
 }
 
 /* Foto + botón */
@@ -78,11 +81,17 @@
     margin-right: auto;
     font-weight: 600;
 }
-#configForm input {
+#configForm input{
     width: 100%;
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    transition: .5s ;
+}
+
+#configForm input:hover{
+    border: 2px solid green;
+    cursor: pointer;
 }
 
 /* Botones */
