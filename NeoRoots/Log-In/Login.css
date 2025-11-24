@@ -50,7 +50,7 @@ width: 100%;
 
 
 input[type="text"] {
-padding: 10px;
+padding: 8px;
 border-radius: 6px;
 border: 2px solid #ffffff;
 background: #ffffff;
@@ -70,7 +70,7 @@ input[type="text"]:hover{
 
 a{
     margin-top: 5px;
-    padding: 10px; 
+    padding: 8px; 
     background-color: #285443;
     margin: 10px;
     border-radius: 6px;
