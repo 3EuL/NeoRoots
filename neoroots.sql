@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-02-2026 a las 21:30:12
+-- Tiempo de generación: 03-02-2026 a las 22:19:59
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -37,16 +37,43 @@ CREATE TABLE `containers` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `points`
+--
+
+CREATE TABLE `points` (
+  `point_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `user` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `pass` varchar(255) NOT NULL,
-  `rol` enum('usuario','admin') NOT NULL
-) ENGINE=MRG_MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `rol` enum('usuario','admin') NOT NULL,
+  `pfp` mediumblob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `waste`
+--
+
+CREATE TABLE `waste` (
+  `waste_id` int(11) NOT NULL,
+  `waste_name` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `container_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Índices para tablas volcadas
@@ -62,7 +89,13 @@ ALTER TABLE `containers`
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indices de la tabla `waste`
+--
+ALTER TABLE `waste`
+  ADD PRIMARY KEY (`waste_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -78,7 +111,13 @@ ALTER TABLE `containers`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `waste`
+--
+ALTER TABLE `waste`
+  MODIFY `waste_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
