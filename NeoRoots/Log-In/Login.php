@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../Log-In/Login.css">
+    <link rel="stylesheet" href="..CSS/Login.css">
     <link rel="shortcut icon" href="Logos/LogoProyecto.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,23 +14,6 @@
 <body>
     
     <section id="Filler">
-        <style>
-
-            #Filler{
-                width: 100% ;
-            }
-
-            #Filler h1{
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                font-size: 150px;
-                color: #fff;
-                margin: 0;
-                text-shadow: 0 10px 10px #000;
-                padding-right: 50px;
-                margin-left: auto;
-
-            }
-        </style>
        <h1>BIEN</h1>
        <h1>VENI</h1>
        <h1>DOS</h1>
@@ -40,21 +23,11 @@
         <div class="hub">
             
             <div class="tittle">
-                <style>
-              #Formulary{
-                font-size: 14px;
-            }
-            .tittle{
-                font-size: 20px;
-            }
-            svg{
-                height: 16px;
-            }
-                </style>
                 <h1 class="tittle">Nos alegra tenerte devuelta</h1>
             </div>
-
-            <div class="data">
+            
+            <form action="php/procesador_login.php" method="post">
+                
                 <label class="user" for="user">Usuario o correo electrónico</label>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg>
                 <input type="text" name="" id="user" placeholder="Ingresar Usuario o Correo">
@@ -64,11 +37,11 @@
                 <a href="../Hub/Hub.html" class="start">Ingresar</a>
                 <a href="../Sign-In/Sign-In.html" class="Sign-In">No tengo cuenta</a>
                 
-            </div>
+            </form>
 
-            
 
-    </div>
+        </div>
+    
     </section>    
     
 
