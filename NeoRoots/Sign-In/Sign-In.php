@@ -1,4 +1,4 @@
-hol<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,6 @@ hol<!DOCTYPE html>
 </head>
 <body>
     
-
     <section id="Filler">
         
        <h1>Une</h1>
@@ -59,7 +58,7 @@ hol<!DOCTYPE html>
             
     
 
-     </div>
+     
 
 </body>
 </html>
