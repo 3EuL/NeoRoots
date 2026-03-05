@@ -84,3 +84,15 @@ a:hover{
     cursor: pointer;
     transform: scale(90%);
 }
+
+h1{
+    font-size: 186px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    margin: 0;
+
+}
+h2{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 10px;
+}

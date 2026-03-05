@@ -11,7 +11,7 @@ $rol = $_POST["rol"];
 
 $conn->query("INSERT INTO users (user, email, rol, pass) VALUES ('$user', '$email', '$rol', '$pass')");
 
-header("location: ../Login.php");
+header("location: Log-In/Login.php");
 exit();
 }
 ?>

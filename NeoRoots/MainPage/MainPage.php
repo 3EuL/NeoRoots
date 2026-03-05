@@ -90,7 +90,7 @@
          
             <h2>Estás a un paso más cerca de ayudarnos a lograr un mejór</h2>
             <div class="Link">
-                <a href="../Sign-In/Sign-In.html">INICIAR</a>
+                <a href="../Sign-In/Sign-In.php">INICIAR</a>
     
             </div>
             
