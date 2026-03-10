@@ -21,8 +21,8 @@
       
 
             <ul>
-                <li><a href="../Sign-In/Sign-In.html" class="Sign-In">Registro</a></li>
-                <li><a href="../Log-In/Login.html">Inicio de Sesión</a></li>
+                <li><a href="../Sign-In/Sign-In.php" class="Sign-In">Registro</a></li>
+                <li><a href="../Log-In/Login.php">Inicio de Sesión</a></li>
                 
             </ul>
             

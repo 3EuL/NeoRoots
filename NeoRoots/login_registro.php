@@ -9,7 +9,7 @@ $pass = $_POST["pass"];
 $rol = $_POST["rol"];
 
 
-$conn->query("INSERT INTO users (user, email, rol, pass) VALUES ('$user', '$email', '$rol', '$pass')");
+$conexion->query("INSERT INTO users (user, email, rol, pass) VALUES ('$user', '$email', '$rol', '$pass')");
 
 header("location: Log-In/Login.php");
 exit();
