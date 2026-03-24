@@ -2,6 +2,11 @@
 session_start();
 include("../conexion.php");
 
+if(!isset($_SESSION['user_id'])){
+    Header("Location: ../Log-In/Login.php");
+    exit();
+}
+
 $id = $_SESSION['user_id'];
 
 $sql = "SELECT * FROM users WHERE user_id='$id'";
@@ -62,6 +67,8 @@ $usuario = mysqli_fetch_assoc($result);
 <a class="back" href="../Hub/Hub.php">Regresar</a>
 
 </form>
+
+<div id="toastContainer"></div>
 
 <p id="saveMsg" class="hidden">Cambios guardados ✔</p>
 <p id="errorMsg" class="hidden"></p>

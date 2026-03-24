@@ -2,6 +2,11 @@
 session_start();
 include("conexion.php");
 
+if(!isset($_SESSION['user_id'])){
+    header("Location: Log-In/Login.php");
+    exit();
+}
+
 $id = $_POST['user_id'];
 $user = $_POST['user'];
 $email = $_POST['email'];
@@ -9,8 +14,7 @@ $email = $_POST['email'];
 $pass = $_POST['pass'] ?? '';
 $confirm = $_POST['confirm_pass'] ?? '';
 
-
-/* ===== VALIDACIÓN CONTRASEÑA OPCIONAL ===== */
+/* ===== CONTRASEÑA ===== */
 if(!empty($pass)){
 
     if(empty($confirm)){
@@ -28,7 +32,7 @@ if(!empty($pass)){
     $sql = "UPDATE users SET 
             user='$user',
             email='$email',
-            password='$passHash'
+            pass='$passHash'
             WHERE user_id='$id'";
 
 }else{
@@ -39,24 +43,49 @@ if(!empty($pass)){
             WHERE user_id='$id'";
 }
 
+/* ===== EJECUTAR DATOS ===== */
+if(!mysqli_query($conexion, $sql)){
+    echo "error:" . mysqli_error($conexion);
+    exit;
+}
 
 /* ===== FOTO ===== */
 if(isset($_FILES['pfp']) && $_FILES['pfp']['error'] == 0){
 
-    $nombre = time() . "_" . $_FILES['pfp']['name'];
-    $ruta = "Images/" . $nombre;
+    /* VALIDAR QUE SEA IMAGEN REAL */
+    $check = getimagesize($_FILES['pfp']['tmp_name']);
+    if($check === false){
+        echo "error:El archivo no es una imagen válida";
+        exit;
+    }
 
-    move_uploaded_file($_FILES['pfp']['tmp_name'], $ruta);
+    /* VALIDAR TAMAÑO */
+    if($_FILES['pfp']['size'] > 2000000){
+        echo "error:La imagen es muy grande (max 2MB)";
+        exit;
+    }
 
-    mysqli_query($conexion, "UPDATE users SET pfp='$nombre' WHERE user_id='$id'");
+    /* BORRAR IMAGEN ANTERIOR */
+    $sqlOld = "SELECT pfp FROM users WHERE user_id='$id'";
+    $result = mysqli_query($conexion, $sqlOld);
+    $row = mysqli_fetch_assoc($result);
+
+    if($row['pfp'] && file_exists("../Images/" . $row['pfp'])){
+        unlink("../Images/" . $row['pfp']);
+    }
+
+    /* NOMBRE ÚNICO */
+    $nombre = uniqid() . "_" . basename($_FILES['pfp']['name']);
+
+    $rutaServidor = "../Images/" . $nombre;
+
+    if(move_uploaded_file($_FILES['pfp']['tmp_name'], $rutaServidor)){
+        mysqli_query($conexion, "UPDATE users SET pfp='$nombre' WHERE user_id='$id'");
+    } else {
+        echo "error:No se pudo subir la imagen";
+        exit;
+    }
 }
 
-
-/* ===== EJECUTAR ===== */
-if(mysqli_query($conexion, $sql)){
-    echo "ok";
-}else{
-    echo "error:No se pudo actualizar";
-}
-
+echo "ok";
 ?>

@@ -159,6 +159,42 @@ body{
     }
 }
 
+#toastContainer{
+    position:fixed;
+    top:50%;
+    right:20px;
+    transform:translateY(-50%);
+}
+
+.toast{
+    padding:12px 18px;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+    min-width:220px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    animation:slideIn 0.3s ease;
+}
+
+.toast.success{
+    background:#2e6d53;
+}
+
+.toast.error{
+    background:#c0392b;
+}
+
+@keyframes slideIn{
+    from{
+        opacity:0;
+        transform:translateX(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
 .hidden{
     display:none !important;
 }

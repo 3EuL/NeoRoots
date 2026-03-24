@@ -1,12 +1,37 @@
 document.addEventListener("DOMContentLoaded", function(){
 
+    /* =========================
+    VARIABLES
+    ========================= */
     const form = document.getElementById("configForm");
-    const msg = document.getElementById("saveMsg");
-    const errorMsg = document.getElementById("errorMsg");
     const btn = form.querySelector("button[type='submit']");
     
     const upload = document.getElementById("pfpUpload");
     const profilePic = document.getElementById("profilePic");
+    
+    const togglePassBtn = document.getElementById("togglePass");
+    const passwordSection = document.getElementById("passwordSection");
+    
+    let passVisible = false;
+    
+    /* =========================
+    TOASTS (POPUPS)
+    ========================= */
+    function showToast(message, type = "success"){
+    
+        const container = document.getElementById("toastContainer");
+    
+        const toast = document.createElement("div");
+        toast.classList.add("toast", type);
+        toast.textContent = message;
+    
+        container.appendChild(toast);
+    
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
     
     /* =========================
     PREVISUALIZAR IMAGEN
@@ -24,24 +49,18 @@ document.addEventListener("DOMContentLoaded", function(){
     
             reader.readAsDataURL(file);
         }
-    
     });
     
     /* =========================
-    MOSTRAR/OCULTAR PASSWORD
+    MOSTRAR / OCULTAR PASSWORD
     ========================= */
-    const togglePassBtn = document.getElementById("togglePass");
-    const passwordSection = document.getElementById("passwordSection");
-    
-    let passVisible = false;
-    
     togglePassBtn.addEventListener("click", () => {
     
         passVisible = !passVisible;
     
         if(passVisible){
             passwordSection.classList.remove("hidden");
-            togglePassBtn.textContent = "Cancelar cambio";
+            togglePassBtn.textContent = "Cancelar cambio de contraseña";
         }else{
             passwordSection.classList.add("hidden");
             togglePassBtn.textContent = "Cambiar contraseña";
@@ -49,56 +68,91 @@ document.addEventListener("DOMContentLoaded", function(){
             form.querySelector("input[name='pass']").value = "";
             form.querySelector("input[name='confirm_pass']").value = "";
         }
-    
     });
     
-  
+    /* =========================
+    ENVÍO AJAX
+    ========================= */
     form.addEventListener("submit", function(e){
-    e.preventDefault();
+        e.preventDefault();
     
-    const formData = new FormData(form);
+        const formData = new FormData(form);
     
-    msg.classList.add("hidden");
-    errorMsg.classList.add("hidden");
+        const pass = form.querySelector("input[name='pass']").value;
+        const confirm = form.querySelector("input[name='confirm_pass']").value;
     
-    btn.disabled = true;
-    btn.textContent = "Guardando...";
+      /* VALIDACIÓN CONTRASEÑA */
+if(passVisible){
+
+    if(pass === "" || confirm === ""){
+        showToast("Debes completar ambos campos de contraseña", "error");
+        return;
+    }
+
+    if(pass !== confirm){
+        showToast("Las contraseñas no coinciden", "error");
+        return;
+    }
+}
+
+/* LIMPIAR SI NO SE USA */
+if(!passVisible){
+    formData.delete("pass");
+    formData.delete("confirm_pass");
+}
+        /* =========================
+        BOTÓN CARGANDO
+        ========================= */
+        btn.disabled = true;
+        btn.textContent = "Guardando...";
     
-    fetch("../procesador_config.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.text())
-    .then(data => {
+        fetch("../procesador_config.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.text())
+        .then(data => {
     
-        data = data.trim();
+            data = data.trim();
     
-        if(data === "ok"){
+            /* ÉXITO */
+            if(data === "ok"){
+                showToast("Cambios guardados", "success");
+            
+                // Si se seleccionó nueva imagen, actualizar visualmente
+                if(upload.files[0]){
+                    const nuevaImagen = URL.createObjectURL(upload.files[0]);
+                    profilePic.src = nuevaImagen;
+                }
+            
+                // Limpiar inputs
+                form.querySelector("input[name='pass']").value = "";
+                form.querySelector("input[name='confirm_pass']").value = "";
+            
+                passwordSection.classList.add("hidden");
+                togglePassBtn.textContent = "Cambiar contraseña";
+                passVisible = false;
+            }
     
-            msg.classList.remove("hidden");
+            /* ERRORES PERSONALIZADOS */
+            else if(data.startsWith("error:")){
+                const mensaje = data.replace("error:", "");
+                showToast(mensaje, "error");
+            }
     
-            setTimeout(() => {
-                location.reload();
-            }, 1500);
+            /* ERROR DESCONOCIDO */
+            else{
+                showToast("Error inesperado", "error");
+            }
     
-        }else if(data.startsWith("error:")){
-    
-            errorMsg.textContent = data.replace("error:", "");
-            errorMsg.classList.remove("hidden");
-    
-        }else{
-            alert("Error inesperado");
-        }
-    
-    })
-    .catch(() => {
-        alert("Error de conexión");
-    })
-    .finally(() => {
-        btn.disabled = false;
-        btn.textContent = "Guardar cambios";
+        })
+        .catch(() => {
+            showToast("Error de conexión", "error");
+        })
+        .finally(() => {
+            btn.disabled = false;
+            btn.textContent = "Guardar cambios";
+        });
     });
     
-    });
-    
-    });
+});
