@@ -31,7 +31,7 @@ $usuario = mysqli_fetch_assoc($result);
 
 
 <div class="profile-section">
-<img id="profilePic" src="../Images/<?php echo $usuario['pfp']; ?>">
+<img id="profilePic" src="../ASSETS/ProfilePictures/<?php echo $usuario['pfp'] ? $usuario['pfp'] : 'default.png'; ?>">
 
 <label for="pfpUpload" class="upload-btn">Cambiar foto</label>
 

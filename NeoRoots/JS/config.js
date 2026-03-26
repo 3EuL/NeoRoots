@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-    /* =========================
-    VARIABLES
-    ========================= */
+    
     const form = document.getElementById("configForm");
     const btn = form.querySelector("button[type='submit']");
     
@@ -14,9 +12,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
     let passVisible = false;
     
-    /* =========================
-    TOASTS (POPUPS)
-    ========================= */
+    
     function showToast(message, type = "success"){
     
         const container = document.getElementById("toastContainer");
@@ -33,9 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }, 3000);
     }
     
-    /* =========================
-    PREVISUALIZAR IMAGEN
-    ========================= */
+    
     upload.addEventListener("change", function(){
     
         const file = this.files[0];
@@ -51,9 +45,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     });
     
-    /* =========================
-    MOSTRAR / OCULTAR PASSWORD
-    ========================= */
+    
     togglePassBtn.addEventListener("click", () => {
     
         passVisible = !passVisible;
@@ -70,9 +62,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     });
     
-    /* =========================
-    ENVÍO AJAX
-    ========================= */
+    
     form.addEventListener("submit", function(e){
         e.preventDefault();
     
@@ -81,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function(){
         const pass = form.querySelector("input[name='pass']").value;
         const confirm = form.querySelector("input[name='confirm_pass']").value;
     
-      /* VALIDACIÓN CONTRASEÑA */
+      
 if(passVisible){
 
     if(pass === "" || confirm === ""){
@@ -95,14 +85,12 @@ if(passVisible){
     }
 }
 
-/* LIMPIAR SI NO SE USA */
+
 if(!passVisible){
     formData.delete("pass");
     formData.delete("confirm_pass");
 }
-        /* =========================
-        BOTÓN CARGANDO
-        ========================= */
+        
         btn.disabled = true;
         btn.textContent = "Guardando...";
     
@@ -115,17 +103,17 @@ if(!passVisible){
     
             data = data.trim();
     
-            /* ÉXITO */
+            
             if(data === "ok"){
                 showToast("Cambios guardados", "success");
             
-                // Si se seleccionó nueva imagen, actualizar visualmente
+                
                 if(upload.files[0]){
                     const nuevaImagen = URL.createObjectURL(upload.files[0]);
                     profilePic.src = nuevaImagen;
                 }
             
-                // Limpiar inputs
+                
                 form.querySelector("input[name='pass']").value = "";
                 form.querySelector("input[name='confirm_pass']").value = "";
             
@@ -134,13 +122,13 @@ if(!passVisible){
                 passVisible = false;
             }
     
-            /* ERRORES PERSONALIZADOS */
+            
             else if(data.startsWith("error:")){
                 const mensaje = data.replace("error:", "");
                 showToast(mensaje, "error");
             }
     
-            /* ERROR DESCONOCIDO */
+            
             else{
                 showToast("Error inesperado", "error");
             }
