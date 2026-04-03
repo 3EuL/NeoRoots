@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Registro - NeoRoots</title>
     <!-- OJO: Usamos el MISMO archivo CSS del Login para que mantenga el diseño de cristal -->
-    <link rel="stylesheet" href="../CSS/Login.css"> 
+    <link rel="stylesheet" href="../CSS/Login_Register.css"> 
 </head>
 <body>
 
@@ -18,27 +18,29 @@
             <h2>Únete a NeoRoots</h2>
             <p>Regístrate y sé parte de la solución para un mundo más limpio.</p>
 
-            <form action="#" method="POST" class="login-form">
+            <form method="post" class="login-form" id="signInForm">
                 
                 <!-- Campo Nuevo: Nombre -->
                 <div class="input-box">
-                    <input type="text" placeholder="Tu Nombre Completo" required>
-                </div>
+                    <input type="text" name="user" placeholder="Tu Nombre Completo">
 
-                <div class="input-box">
-                    <input type="email" placeholder="Correo Electrónico" required>
-                </div>
-                
-                <div class="input-box">
-                    <input type="password" placeholder="Crea una Contraseña" required>
-                </div>
+
+                    <input type="email" name="email" placeholder="Correo Electrónico">
+
+                    <select name="rol" id="rol">
+                        <option value="">--Selecciona un rol--</option>
+                        <option value="usuario">Usuario</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+
+                    <input type="password" name="pass" placeholder="Crea una Contraseña">
+
 
                 <!-- Campo Nuevo: Confirmar Contraseña -->
-                <div class="input-box">
-                    <input type="password" placeholder="Confirma tu Contraseña" required>
+                    <input type="password" name="repass" placeholder="Confirma tu Contraseña">
                 </div>
 
-                <button type="submit" class="btn-login">CREAR CUENTA</button>
+                <input type="submit" value="CREAR CUENTA" name="registrate" class="btn-login"></input>
 
                 <div class="register-link">
                     <p>¿Ya tienes una cuenta? <a href="../Log-In/Login.php">Inicia sesión aquí</a></p>
@@ -47,6 +49,10 @@
         </div>
 
     </div>
+
+    <div id="toastContainer"></div>
+
+    <script src="../JS/sign_in.js"></script>
 
 </body>
 </html>

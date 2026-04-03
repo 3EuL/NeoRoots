@@ -24,7 +24,7 @@ $usuario = mysqli_fetch_assoc($resultado);
     <link rel="stylesheet" href="../CSS/Config.css">
 </head>
 <body>
-    <section id="view-config" class="view"  style="display:block;>
+    <section id="view-config" class="view"  style="display:block;">
         <h1>Configuración de la cuenta</h1>
     
         <form id="configForm" method="POST" action="Config.php">
