@@ -1,0 +1,223 @@
+body{
+    margin:0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:url("../Images/pexels-silvana-palacios-2013790-3635870.jpg");
+    background-size:cover;
+    background-position:center;
+}
+
+.view{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+
+.config-container{
+    width:420px;
+    padding:40px;
+    border-radius:15px;
+
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(12px);
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+
+    color:white;
+}
+
+.config-container h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+
+
+.profile-section{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+#profilePic{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid rgba(255,255,255,0.8);
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    margin-bottom:10px;
+}
+
+.upload-btn{
+    background:#2e6d53;
+    padding:8px 18px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.upload-btn:hover{
+    background:#285443;
+    transform:scale(1.05);
+}
+
+
+
+#configForm{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+#configForm label{
+    font-weight:bold;
+}
+
+#configForm input{
+    padding:10px;
+    border-radius:6px;
+    border:none;
+    transition: .5s;
+}
+
+#configForm input:hover{
+    cursor:pointer;
+    outline:none;
+    box-shadow:0 0 0 2px #2e6d53;
+}
+
+#configForm input:focus{
+    outline:none;
+    box-shadow:0 0 0 2px #2e6d53;
+}
+
+
+
+#configForm button{
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    background:#2e6d53;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#configForm button:hover{
+    background:#285443;
+    transform:scale(1.03);
+}
+
+
+
+.back{
+    text-align:center;
+    margin-top:10px;
+    padding:12px;
+    border-radius:6px;
+    background:#444;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.back:hover{
+    background:#333;
+}
+
+#saveMsg{
+    margin-top:15px;
+    color:#7CFF9B;
+    font-weight:bold;
+    text-align:center;
+    animation:fade 1s ease;
+}
+
+#errorMsg{
+    margin-top:15px;
+    color:red;
+    font-weight:bold;
+    text-align:center;
+    animation:fade 1s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(-10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+#toastContainer{
+    position:fixed;
+    top:50%;
+    right:20px;
+    transform:translateY(-50%);
+}
+
+.toast{
+    padding:12px 18px;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+    min-width:220px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    animation:slideIn 0.3s ease;
+}
+
+.toast.success{
+    background:#2e6d53;
+}
+
+.toast.error{
+    background:#c0392b;
+}
+
+@keyframes slideIn{
+    from{
+        opacity:0;
+        transform:translateX(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.hidden{
+    display:none !important;
+}
+
+#togglePass{
+    margin-top:10px;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    background:#555;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#togglePass:hover{
+    background:#333;
+}
+
+#passwordSection{
+    display: flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:10px;
+    animation:fade 0.3s ease;
+}
