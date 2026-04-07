@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 showToast("Inicio de sesión exitoso", "success");
 
                 setTimeout(() => {
-                    window.location.href = "../Hub/Hub.php";
+                    window.location.href = "/NeoRoots/FrontEnd/Hub.php";
                 }, 1500);
 
             } else if (data.includes("error_pass")) {
@@ -33,7 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             } else if (data.includes("error_empty")) {
 
-                showToast("Debes completar ambos campos", "error");    
+                showToast("Debes completar ambos campos", "error");
+                
+            } else if (data.includes("redirect:register")) {    
+
+                window.location.href = "Sign-In.php";
 
             } else {
 

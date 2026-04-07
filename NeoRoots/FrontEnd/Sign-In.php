@@ -74,7 +74,7 @@
 <!-- ===== TOAST GLOBAL (FUERA DEL LAYOUT) ===== -->
 <div id="toastContainer"></div>
 
-<script src="../JS/sign_in.js"></script>
+<script src="/NeoRoots/JS/sign_in.js"></script>
 
 </body>
 </html>

@@ -48,8 +48,11 @@
 
         </div>
     
-    </section>    
-    
+    </section>
+
+    <div id="toastContainer"></div>
+
+    <script src="/NeoRoots/JS/login.js"></script>
 
 </body>
 </html>

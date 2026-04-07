@@ -2,8 +2,13 @@
 session_start();
 include("conexion.php");
 
-$login = $_POST['login'];   
-$pass = $_POST['pass'];
+$login = trim($_POST['login']);   
+$pass = trim($_POST['pass']);
+
+if(empty($login) || empty($pass)){
+    echo "error_empty";
+    exit;
+}
 
 $sql = "SELECT * FROM users 
         WHERE user='$login' 
@@ -17,35 +22,23 @@ if(mysqli_num_rows($resultado) > 0){
 
     if(password_verify($pass, $datos['pass'])){
 
+        // ✅ SESIÓN
         $_SESSION['user_id'] = $datos['user_id'];
         $_SESSION['user'] = $datos['user'];
         $_SESSION['rol'] = $datos['rol'];
 
-        if($datos['rol'] == "admin"){
-
-            header("Location: Hub/Hub.php");
-
-        }else{
-
-            header("Location: Hub/Hub.php");
-
-        }
-
-        exit();
-
-        header("Location: ../Page-Reports/Reports.html");
-        exit();
+        echo "success";
 
     }else{
-        echo "Contraseña incorrecta";
+        echo "error_pass";
     }
 
 }else{
-    echo "Usuario o correo no encontrado";
+    echo "error_user";
 }
 
 if(isset($_POST['noacc'])){
-    header("Location: Sign-in.php");
+    echo "redirect:register";
     exit();
 }
 ?>
