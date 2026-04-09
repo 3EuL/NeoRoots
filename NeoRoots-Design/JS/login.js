@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/* ===== FUNCIÓN TOAST ===== */
+
 function showToast(message, type = "success") {
     const container = document.getElementById("toastContainer");
 

@@ -5,7 +5,7 @@ html {
     margin: 0;
     padding: 0;
 }
-/* --- LA BARRA PRINCIPAL --- */
+
 .nav {
     position: fixed;
     top: 0;
@@ -15,14 +15,14 @@ html {
     backdrop-filter: blur(10px);
     background-color: rgba(0, 0, 0, 0.6);
     
-    /* 👇 Reducido a un tamaño mucho más sutil y moderno */
+    
     padding: 12px 0; 
 }
 
-/* --- EL CONTENEDOR DEL MENÚ --- */
+
 nav {
     display: flex;
-    align-items: center; /* 👇 SUPER IMPORTANTE: Esto asegura que el logo y las letras se queden exactamente en el medio de la nueva barra gigante */
+    align-items: center; 
 }
 nav img{
     width: 6%;
@@ -76,10 +76,10 @@ nav ul li a:hover{
     padding-top: 150px; 
 }
 
-/* --- BOTONES DE SESIÓN Y REGISTRO (TOTALMENTE BLANCOS) --- */
+
 nav ul li a.Sign-In {
-    background-color: #ffffff !important; /* Fondo relleno 100% de blanco */
-    color: #1a3826 !important; /* Texto verde oscuro */
+    background-color: #ffffff !important; 
+    color: #1a3826 !important; 
     border: 2px solid #ffffff; 
     border-radius: 20px; 
     padding: 8px 20px; 
@@ -89,7 +89,7 @@ nav ul li a.Sign-In {
 }
 
 nav ul li a.Sign-In:hover {
-    background-color: #8BF3A6 !important; /* Verde brillante al pasar el mouse */
+    background-color: #8BF3A6 !important; 
     border-color: #8BF3A6 !important; 
     color: #0b1c12 !important; 
     transform: scale(1.1); 
@@ -118,29 +118,28 @@ nav ul li a.Sign-In:hover {
     color: #ffffff;
     text-transform: uppercase;
     text-decoration: none;
-    border: 3px solid #2F6F4F; /* Borde blanco grueso */
-    border-radius: 50px; /* Totalmente redondo (forma de pastilla) */
+    border: 3px solid #2F6F4F; 
+    border-radius: 50px; 
     letter-spacing: 1px;
     transition: all 0.3s ease;
     background-color:rgba(0, 0, 0, 0.6);
 }
 
 .Link a:hover {
-    background: #2F6F4F; /* Se rellena del verde brillante */
-    color: #ffffff; /* Letras verde muy oscuro */
-    border-color: #8BF3A6; /* El borde también cambia a verde */
-    box-shadow: 0 0 25px #2F6F4F; /* Brillo fuerte estilo Neón */
-    letter-spacing: 5px; /* ¡Mágia! Las letras se separan solas al pasar el mouse */
+    background: #2F6F4F; 
+    color: #ffffff; 
+    border-color: #8BF3A6; 
+    box-shadow: 0 0 25px #2F6F4F; 
+    letter-spacing: 5px; 
                 }
 
-/* Configuración General */
+
     .about-section {
-        /* Capa 1: Color verde oscuro al 90% de opacidad */
-        /* Capa 2: Tu imagen de fondo */
+        
         background-image: linear-gradient(rgba(22, 48, 34, 0.9), rgba(22, 48, 34, 0.9)), url("../ASSETS/Images/images.jpg");
-        background-size: cover; /* Asegura que la imagen cubra todo */
+        background-size: cover; 
         background-position: center;
-        background-attachment: fixed; /* Opcional: Hace un efecto Parallax (el fondo se queda quieto al bajar) */
+        background-attachment: fixed; 
         padding: 80px 10%;
         color: #ffffff;
     }
@@ -153,13 +152,13 @@ nav ul li a.Sign-In:hover {
     margin: 0 auto;
 }
 
-/* Columna de Texto */
+
 .about-content {
     flex: 1;
 }
 
 .about-title {
-    color: #f9fefb; /* Verde NeoRoots */
+    color: #f9fefb; 
     font-size: 3rem;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
@@ -178,13 +177,13 @@ nav ul li a.Sign-In:hover {
     font-weight: 300;
 }
 
-/* Botón Estilo NeoRoots */
+
 .btn-more {
     display: inline-block;
     background-color:rgba(0, 0, 0, 0.6);
-    color: #ffffff; /* Texto blanco */
+    color: #ffffff; 
     padding: 12px 30px;
-    border: 2px solid #ffffff; /* Borde blanco */
+    border: 2px solid #ffffff; 
     border-radius: 25px;
     text-decoration: none;
     font-weight: bold;
@@ -193,11 +192,11 @@ nav ul li a.Sign-In:hover {
 }
 
 .btn-more:hover {
-    background-color: #ffffff; /* Se rellena de blanco al pasar el mouse */
-    color: #2b593f; /* Las letras se vuelven verdes */
+    background-color: #ffffff; 
+    color: #2b593f; 
 }
 
-/* Columna de Imagen con Marco */
+
 .about-image {
     flex: 1;
     display: flex;
@@ -216,7 +215,7 @@ nav ul li a.Sign-In:hover {
     display: block;
 }
 
-/* Responsivo para móviles */
+
 @media (max-width: 768px) {
     .about-container {
         flex-direction: column;
@@ -224,9 +223,9 @@ nav ul li a.Sign-In:hover {
     }
 }
 
-/* --- SECCIÓN DE CONTACTO --- */
+
 .contact-section {
-    background-color: #0b1c12; /* Un fondo verde muuuuy oscuro, casi negro, para que contraste con la misión */
+    background-color: #0b1c12; 
     padding: 100px 10%;
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -241,7 +240,7 @@ nav ul li a.Sign-In:hover {
     margin: 0 auto;
 }
 
-/* Información Izquierda */
+
 .contact-info {
     flex: 1;
 }
@@ -263,17 +262,17 @@ nav ul li a.Sign-In:hover {
 .info-details p {
     font-size: 1.1rem;
     margin-bottom: 15px;
-    color: #8BF3A6; /* Verde de tu marca para resaltar los iconos */
+    color: #8BF3A6; 
 }
 
 .info-details strong {
     color: #ffffff;
 }
 
-/* Formulario Derecha */
+
 .contact-form-container {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05); /* Cajita sutil transparente */
+    background: rgba(255, 255, 255, 0.05); 
     padding: 40px;
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -297,7 +296,7 @@ nav ul li a.Sign-In:hover {
     transition: 0.3s;
 }
 
-/* Cambia el color del borde al escribir */
+
 .contact-form input:focus, 
 .contact-form select:focus, 
 .contact-form textarea:focus {
@@ -306,7 +305,7 @@ nav ul li a.Sign-In:hover {
     box-shadow: 0 0 10px rgba(139, 243, 166, 0.2);
 }
 
-/* Botón de Enviar (Estilo fantasma como el que ya tienes) */
+
 .btn-submit {
     width: 100%;
     background-color: transparent;
@@ -326,7 +325,7 @@ nav ul li a.Sign-In:hover {
     color: #0b1c12;
 }
 
-/* Responsivo para celulares */
+
 @media (max-width: 768px) {
     .contact-container {
         flex-direction: column;
@@ -344,9 +343,9 @@ nav ul li a.Sign-In:hover {
     align-items: center; 
 }
 
-/* --- SECCIÓN DE PROYECTOS --- */
+
 .projects-section {
-    background-color: #0b1c12; /* Mismo fondo que contacto */
+    background-color: #0b1c12; 
     padding: 100px 10%;
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -374,14 +373,14 @@ nav ul li a.Sign-In:hover {
     margin: 0 auto;
 }
 
-/* Grilla de tarjetas */
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
 
-/* Tarjetas individuales (Efecto cristal igual a tu formulario) */
+
 .project-card {
     background: rgba(255, 255, 255, 0.05);
     padding: 30px;
@@ -417,7 +416,7 @@ nav ul li a.Sign-In:hover {
     margin-bottom: 20px;
 }
 
-/* Barras de Progreso */
+
 .progress-wrapper {
     background: rgba(0, 0, 0, 0.4);
     height: 10px;
@@ -429,7 +428,7 @@ nav ul li a.Sign-In:hover {
 
 .progress-bar {
     height: 100%;
-    background-color: #8BF3A6; /* Tu verde neón */
+    background-color: #8BF3A6; 
     box-shadow: 0 0 15px #8BF3A6;
     border-radius: 10px;
 }
@@ -442,7 +441,7 @@ nav ul li a.Sign-In:hover {
     font-weight: bold;
 }
 
-/* Ajuste responsivo */
+
 @media (max-width: 768px) {
     .projects-header h2 {
         font-size: 2rem;

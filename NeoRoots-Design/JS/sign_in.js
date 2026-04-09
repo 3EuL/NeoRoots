@@ -19,9 +19,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }, 3000);
 }
 
-    /* =========================
-    ENVÍO AJAX
-    ========================= */
+ 
     form.addEventListener("submit", function(e){
         e.preventDefault();
 

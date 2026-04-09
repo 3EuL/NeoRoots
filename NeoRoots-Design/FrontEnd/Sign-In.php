@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro - NeoRoots</title>
-    <!-- OJO: Usamos el MISMO archivo CSS del Login para que mantenga el diseño de cristal -->
+    
     <link rel="stylesheet" href="../CSS/Login_Register.css"> 
 </head>
 <body>
 
-    <!-- Fondo y Contenedor Principal -->
+    
     <div class="login-wrapper">
         
-        <!-- La Cajita de Cristal (Aprovechamos las mismas clases del CSS) -->
+       
         <div class="login-box">
             <img src="../ASSETS/Logos/LogoProyecto.png" alt="NeoRoots Logo" class="login-logo">
             
@@ -20,7 +20,7 @@
 
             <form method="post" class="login-form" id="signInForm">
                 
-                <!-- Campo Nuevo: Nombre -->
+                
                 <div class="input-box">
                     <input type="text" name="user" placeholder="Tu Nombre Completo">
 
@@ -36,7 +36,7 @@
                     <input type="password" name="pass" placeholder="Crea una Contraseña">
 
 
-                <!-- Campo Nuevo: Confirmar Contraseña -->
+                
                     <input type="password" name="repass" placeholder="Confirma tu Contraseña">
                 </div>
 
