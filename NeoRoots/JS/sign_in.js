@@ -2,9 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const form = document.querySelector("#signInForm");
 
-    /* =========================
-    TOAST
-    ========================= */
+   
     function showToast(message, type = "success"){
 
         const container = document.getElementById("toastContainer");
@@ -21,9 +19,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }, 3000);
     }
 
-    /* =========================
-    ENVÍO AJAX
-    ========================= */
+   
     form.addEventListener("submit", function(e){
         e.preventDefault();
 
@@ -37,11 +33,9 @@ document.addEventListener("DOMContentLoaded", function(){
         .then(res => res.text())
         .then(data => {
 
-       
-
-                console.log("RESPUESTA DEL SERVIDOR:", data);
+            console.log("RESPUESTA DEL SERVIDOR:", data);
             
-                data = data.trim();
+            data = data.trim();
 
 
             if(data === "ok"){

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
 
-    <link rel="stylesheet" href="../CSS/Sign-In.css">
+    <link rel="stylesheet" href="/NeoRoots/CSS/Sign-In.css">
     <link rel="shortcut icon" href="Logos/LogoProyecto.png" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,14 +17,14 @@
 
 <main>
 
-    <!-- ===== PANEL IZQUIERDO ===== -->
+    
     <section id="Filler">
         <h1>Une</h1>
         <h1>Te</h1>
         <h1>Nos</h1>
     </section>
 
-    <!-- ===== FORMULARIO ===== -->
+    
     <section id="Formulary">
 
         <div class="hub">
@@ -58,8 +58,7 @@
 
                     <input type="submit" value="Registrarse" name="registrate">
 
-                    <input type="button" value="Ya tengo cuenta"
-                        onclick="window.location.href='../Log-In/Login.php'">
+                    <input type="submit" value="Ya tengo cuenta" onclick="window.location.href='/NeoRoots/FrontEnd/Login.php'">
 
                 </div>
 
@@ -71,7 +70,7 @@
 
 </main>
 
-<!-- ===== TOAST GLOBAL (FUERA DEL LAYOUT) ===== -->
+
 <div id="toastContainer"></div>
 
 <script src="/NeoRoots/JS/sign_in.js"></script>

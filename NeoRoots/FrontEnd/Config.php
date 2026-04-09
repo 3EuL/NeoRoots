@@ -16,51 +16,51 @@ $usuario = mysqli_fetch_assoc($result);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Configuración</title>
-<link rel="stylesheet" href="../CSS/Config.css">
+    <meta charset="UTF-8">
+    <title>Configuración</title>
+    <link rel="stylesheet" href="../CSS/Config.css">
 </head>
 
 <body>
 
-<section class="view">
+    <section class="view">
 
-<div class="config-container">
+        <div class="config-container">
 
-<h1>Configuración de la cuenta</h1>
-
-
-<div class="profile-section">
-<img id="profilePic" src="../ASSETS/ProfilePictures/<?php echo $usuario['pfp'] ? $usuario['pfp'] : 'default.png'; ?>">
-
-<label for="pfpUpload" class="upload-btn">Cambiar foto</label>
-
-<input type="file" id="pfpUpload" name="pfp" form="configForm" hidden>
-</div>
+            <h1>Configuración de la cuenta</h1>
 
 
-<form id="configForm" enctype="multipart/form-data">
+            <div class="profile-section">
+                <img id="profilePic" src="../ASSETS/ProfilePictures/<?php echo $usuario['pfp'] ? $usuario['pfp'] : 'default.png'; ?>">
 
-<input type="hidden" name="user_id" value="<?php echo $usuario['user_id']; ?>">
+                <label for="pfpUpload" class="upload-btn">Cambiar foto</label>
 
-<label>Usuario</label>
-<input type="text" name="user" value="<?php echo $usuario['user']; ?>">
-
-<label>Email</label>
-<input type="email" name="email" value="<?php echo $usuario['email']; ?>">
+                <input type="file" id="pfpUpload" name="pfp" form="configForm" hidden>
+        </div>
 
 
-<button type="button" id="togglePass">Cambiar contraseña</button>
+        <form id="configForm" enctype="multipart/form-data">
 
-<div id="passwordSection" class="hidden">
+            <input type="hidden" name="user_id" value="<?php echo $usuario['user_id']; ?>">
 
-<label>Nueva contraseña</label>
-<input type="password" name="pass">
+            <label>Usuario</label>
+            <input type="text" name="user" value="<?php echo $usuario['user']; ?>">
 
-<label>Confirmar contraseña</label>
-<input type="password" name="confirm_pass">
+            <label>Email</label>
+            <input type="email" name="email" value="<?php echo $usuario['email']; ?>">
 
-</div>
+
+            <button type="button" id="togglePass">Cambiar contraseña</button>
+
+            <div id="passwordSection" class="hidden">
+
+            <label>Nueva contraseña</label>
+            <input type="password" name="pass">
+
+            <label>Confirmar contraseña</label>
+            <input type="password" name="confirm_pass">
+
+    </div>
 
 <button type="submit">Guardar cambios</button>
 

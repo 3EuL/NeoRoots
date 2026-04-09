@@ -78,6 +78,7 @@ main{
 input[type="email"],
 input[type="text"],
 input[type="password"],
+input[type="sumbit"],
 select {
     padding: 6px;
     border-radius: 6px;
@@ -99,7 +100,7 @@ select:focus{
     border: 2px solid #204d11;
 }
 
-/* ===== BOTONES ===== */
+
 input[type="submit"]{
     margin-top: 10px;
     padding: 8px;
@@ -120,7 +121,7 @@ input[type="submit"]:hover{
     transform: translateY(-2px);
 }
 
-/* ===== TEXTO ===== */
+
 .tittle{
     font-size: 20px;
 }
@@ -129,7 +130,6 @@ svg{
     height: 16px;
 }
 
-/* ===== TOAST (CORREGIDO) ===== */
 #toastContainer{
     position: fixed;
     top: 30px;
@@ -152,7 +152,7 @@ svg{
     animation: fadeSlide 0.4s ease;
 }
 
-/* COLORES */
+
 .toast.success{
     background: linear-gradient(135deg, #2ecc71, #27ae60);
 }
@@ -161,7 +161,6 @@ svg{
     background: linear-gradient(135deg, #e74c3c, #c0392b);
 }
 
-/* ANIMACIÓN LIMPIA */
 @keyframes fadeSlide{
     from{
         opacity: 0;

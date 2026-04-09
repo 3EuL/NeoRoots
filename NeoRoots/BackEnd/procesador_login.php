@@ -5,6 +5,7 @@ include("conexion.php");
 $login = trim($_POST['login']);   
 $pass = trim($_POST['pass']);
 
+
 if(empty($login) || empty($pass)){
     echo "error_empty";
     exit;
@@ -37,8 +38,5 @@ if(mysqli_num_rows($resultado) > 0){
     echo "error_user";
 }
 
-if(isset($_POST['noacc'])){
-    echo "redirect:register";
-    exit();
-}
+
 ?>

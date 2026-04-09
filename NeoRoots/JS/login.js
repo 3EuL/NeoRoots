@@ -35,10 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 showToast("Debes completar ambos campos", "error");
                 
-            } else if (data.includes("redirect:register")) {    
-
-                window.location.href = "Sign-In.php";
-
             } else {
 
                 showToast("Error inesperado", "error");
