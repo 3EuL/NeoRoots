@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-03-2026 a las 22:40:59
+-- Tiempo de generación: 14-04-2026 a las 22:14:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -62,14 +62,6 @@ CREATE TABLE `users` (
   `pfp` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`user_id`, `user`, `email`, `pass`, `rol`, `pfp`) VALUES
-(11, '2323allison', 'allison@gmail.com', '$2y$10$raBZThgEPscRoyP4wEYvSuYo0LnPFgtbLOdBZ5SH45le2QFR2e1Si', 'usuario', ''),
-(12, 'guerrero.camila12', 'guerrero@gmail.com', '$2y$10$7jlIdyPtcwF006OTRIBvxOQovnnnXJnbZRX3GTUq.8rZVrKBCk5bW', 'usuario', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -119,7 +111,7 @@ ALTER TABLE `containers`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `waste`
