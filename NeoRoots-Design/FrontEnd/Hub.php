@@ -16,7 +16,7 @@
     <div class="nav">
         <nav>
 
-            <img src="../Logos/LogoEmpresa.png" alt="">
+            <img src="../ASSETS/Logos/LogoEmpresa.png" alt="">
             <ul>
                 <li><a href="../Configuration/Config.php">Settings</a></li>
                 <li><a href="../Hub/Hub.php">Home</a></li>
