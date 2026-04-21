@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') no-repeat center/cover;
+    color: white;
+}
+
+/* OVERLAY */
+.overlay {
+    background: rgba(0, 0, 0, 0.7);
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: rgba(0,0,0,0.6);
+}
+
+nav img{
+    width: 6%;
+    height:3%;
+    margin-right: auto;
+    margin-left: 50px;
+    
+}
+
+
+/* CONTENEDOR */
+.container {
+    width: 60%;
+    margin: auto;
+    padding-top: 40px;
+}
+
+/* TITULO */
+h1 {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+/* TARJETA RANKING */
+.player {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+    transition: 0.3s;
+}
+
+.player:hover {
+    transform: scale(1.02);
+    background: rgba(255,255,255,0.08);
+}
+
+/* TOP 3 */
+.player.top1 {
+    border-left: 5px solid gold;
+}
+.player.top2 {
+    border-left: 5px solid silver;
+}
+.player.top3 {
+    border-left: 5px solid #cd7f32;
+}
+
+/* POSICION */
+.position {
+    font-size: 20px;
+    width: 50px;
+}
+
+/* INFO */
+.info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.info img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+/* NOMBRE */
+.name {
+    font-size: 18px;
+}
+
+/* PUNTOS */
+.points {
+    font-size: 18px;
+    color: #6fcf97;
+    font-weight: bold;
+}
+
+.points_top1 {
+    font-size: 18px;
+    color: gold;
+    font-weight: bold;
+}
+.points_top2 {
+    font-size: 18px;
+    color: silver;
+    font-weight: bold;
+}
+.points_top3 {
+    font-size: 18px;
+    color: #cd7f32;
+    font-weight: bold;
+}

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 showToast("Inicio de sesión exitoso", "success");
 
                 setTimeout(() => {
-                    window.location.href = "../FrontEnd/Hub.php";
+                    window.location.href = "../Hub/Hub.php";
                 }, 1500);
 
             } else if (data.includes("error_pass")) {
