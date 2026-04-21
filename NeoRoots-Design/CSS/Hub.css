@@ -1,98 +1,122 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-.nav{
-    
-    backdrop-filter: blur(5px);
-    position: relative;
-    width: 100vw;
-    
-    
-    
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-nav{
-    display: flex;
-    
-}
-nav img{
-    width: 5%;
-    height:2.5%;
-    margin-right: auto;
-    margin-left: 50px;
-    
+/* BODY */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0b1f16;
 }
 
-nav ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    justify-content: space-evenly;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    margin-right: 50px;
+/* CONTENEDOR */
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url('https://images.pexels.com/photos/15279267/pexels-photo-15279267.jpeg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
 }
 
-nav ul li a{
-
-    color: aliceblue;
-    font-family: "Josefin Sans", sans-serif ;
-    text-transform: uppercase;
-    font-size: small;
-    text-decoration: none;
-    transition: .5s;
-
+/* OVERLAY */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0,0,0,0.75),
+    rgba(0,0,0,0.5)
+  );
 }
 
-nav ul li a:hover{
-    
-    cursor: pointer;
-    color: #8BF3A6;
-    transform: scale(80%);
+/* CONTENIDO */
+.contenido {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  padding: 40px;
 }
 
-body{
-    background:  url("../Images/H.jpg");
-    background-size: cover;
-    width: 100vw;
-    height: 100vh;
+/* TÍTULO */
+.titulo {
+  font-size: 64px;
+  font-weight: 900;
+  margin-bottom: 10px;
 }
 
-#Home{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+/* SUBTÍTULO */
+.subtitulo {
+  font-size: 18px;
+  color: #dcdcdc;
+  margin-bottom: 50px;
 }
 
-a{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    transition: .5s;
-    font-weight: 700;
-    margin-top: 10px;
-    font-size: 32px;
-    text-transform: uppercase;
-    
-   
+/* GRID BOTONES */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
 }
 
-a:hover{
-    cursor: pointer;
-    transform: scale(90%);
+/* TARJETAS */
+.card {
+  text-decoration: none;
+  color: white;
+  padding: 40px 20px;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: 700;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.3s;
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255,255,255,0.2);
 }
 
-h1{
-    font-size: 186px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-transform: uppercase;
-    margin: 0;
-
+/* EFECTO HOVER */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
 }
-h2{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-bottom: 10px;
+
+/* COLORES QUE COMBINAN CON NATURALEZA */
+
+/* Ranking (oro verde) */
+.ranking {
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+}
+
+/* Puntos (verde claro brillante) */
+.puntos {
+  background: linear-gradient(135deg, #43a047, #a5d6a7);
+  color: #0b1f16;
+}
+
+/* Escanear (verde oscuro moderno) */
+.escanear {
+  background: linear-gradient(135deg, #1b5e20, #388e3c);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo {
+    font-size: 42px;
+  }
 }
