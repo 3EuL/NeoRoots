@@ -1,60 +1,122 @@
-/* CONTENEDOR PRINCIPAL (antes .hero) */
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0b1f16;
+}
+
+/* CONTENEDOR */
 .container {
   height: 100vh;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 60px;
 
-  background-image: url('img/fondo.jpg');
+  background-image: url('https://images.pexels.com/photos/15279267/pexels-photo-15279267.jpeg');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-
   position: relative;
   color: white;
 }
 
-/* CAPA OSCURA */
+/* OVERLAY */
 .container::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
+  inset: 0;
+  background: linear-gradient(
+    rgba(0,0,0,0.75),
+    rgba(0,0,0,0.5)
+  );
 }
 
-.container * {
+/* CONTENIDO */
+.contenido {
   position: relative;
   z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  padding: 40px;
 }
 
-/* TEXTO */
-.container h1 {
-  font-size: 110px;
+/* TÍTULO */
+.titulo {
+  font-size: 64px;
   font-weight: 900;
+  margin-bottom: 10px;
 }
 
-.container p {
-  margin-top: 20px;
-  font-size: 22px;
+/* SUBTÍTULO */
+.subtitulo {
+  font-size: 18px;
+  color: #dcdcdc;
+  margin-bottom: 50px;
 }
 
-/* BOTÓN */
-.container a {
-  margin-top: 40px;
-  padding: 15px 40px;
-  font-size: 24px;
+/* GRID BOTONES */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* TARJETAS */
+.card {
   text-decoration: none;
-  border: 3px solid white;
   color: white;
-  width: fit-content;
+  padding: 40px 20px;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: 700;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   transition: 0.3s;
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255,255,255,0.2);
 }
 
-.container a:hover {
-  background: #2e7d32;
-  border-color: #2e7d32;
+/* EFECTO HOVER */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+/* COLORES QUE COMBINAN CON NATURALEZA */
+
+/* Ranking (oro verde) */
+.ranking {
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+}
+
+/* Puntos (verde claro brillante) */
+.puntos {
+  background: linear-gradient(135deg, #43a047, #a5d6a7);
+  color: #0b1f16;
+}
+
+/* Escanear (verde oscuro moderno) */
+.escanear {
+  background: linear-gradient(135deg, #1b5e20, #388e3c);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo {
+    font-size: 42px;
+  }
 }
