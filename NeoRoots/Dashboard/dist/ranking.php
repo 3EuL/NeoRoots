@@ -305,7 +305,7 @@
           <a href="index.php" class="brand-link">
             <!--begin::Brand Image-->
             <img
-              src="../../ASSETS/Logos/LogoProyecto.php"
+              src="../../ASSETS/Logos/LogoProyecto.png"
               alt="AdminLTE Logo"
               class="brand-image opacity-75 shadow"
             />
