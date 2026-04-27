@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
         const formData = new FormData(form);
         formData.append("registrate", "1");
 
-        fetch("/NeoRoots-Design/BackEnd/login_registro.php", {
+        fetch("../BackEnd/login_registro.php", {
             method: "POST",
             body: formData
         })
