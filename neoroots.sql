@@ -43,7 +43,7 @@ CREATE TABLE `active_session` (
 
 CREATE TABLE `containers` (
   `container_id` int(11) NOT NULL,
-  `colour` varchar(100) NOT NULL,
+  `colour` varchar(7) NOT NULL,
   `waste_type` varchar(255) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
