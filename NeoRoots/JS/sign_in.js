@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 showToast("Registro exitoso", "success");
 
                 setTimeout(() => {
-                    window.location.href = "/NeoRoots-Design/FrontEnd/Login.php";
+                    window.location.href = "../FrontEnd/Login.php";
                 }, 1500);
             }
 

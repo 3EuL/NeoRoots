@@ -416,7 +416,7 @@
                   </div>
                   <i class="bi bi-trash-fill small-box-icon"></i>
                   <a
-                    href="#"
+                    href="contenedores.php"
                     class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
                     More info <i class="bi bi-link-45deg"></i>
@@ -448,11 +448,11 @@
                 <div class="small-box text-bg-warning">
                   <div class="inner">
                     <h3><?= $usuarios ?></h3>
-                    <p>Total Usuarios</p>
+                    <p>Total Cuentas</p>
                   </div>
                   <i class="bi bi-people-fill small-box-icon"></i>
                   <a
-                    href="#"
+                    href="users.php"
                     class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
                     More info <i class="bi bi-link-45deg"></i>

@@ -19,7 +19,7 @@ if(isset($_POST['editar'])){
 
     if(!empty($_POST['password'])){
         $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $conn->query("UPDATE users SET user='$user', email='$email', password='$pass' WHERE id=$id");
+        $conn->query("UPDATE users SET user='$user', email='$email', pass='$pass' WHERE user_id=$id");
     } else {
         $conn->query("UPDATE users SET user='$user', email='$email' WHERE user_id=$id");
     }
