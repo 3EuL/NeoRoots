@@ -1,60 +1,184 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header("Content-Type: application/json");
 
-$apiKey = "AIzaSyAssBlmAO0PWbQ-q877O2-VYxBvaskrVeQ";
+/* =========================
+   API KEY OPENROUTER
+========================= */
 
+$apiKey = "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";
 
-// Leer entrada
-$input = json_decode(file_get_contents("php://input"), true);
-$mensaje = $input["mensaje"] ?? "";
+/* =========================
+   MENSAJE
+========================= */
 
-if (!$mensaje) {
-    echo json_encode(["respuesta" => "Mensaje vacío"]);
+$input = json_decode(
+    file_get_contents("php://input"),
+    true
+);
+
+$mensaje = trim($input["mensaje"] ?? "");
+
+if(!$mensaje){
+
+    echo json_encode([
+        "respuesta" => "Mensaje vacío."
+    ]);
+
     exit;
 }
 
-$url = "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=" . $apiKey;
+/* =========================
+   PROMPT
+========================= */
 
-$prompt = "Eres EcoBot, experto en reciclaje. Clasifica residuos en orgánico, reciclable o no reciclable y responde en 1 línea.\nUsuario: " . $mensaje;
+$prompt = "
+
+Eres EcoBot, un chatbot ambiental.
+
+SOLO respondes temas relacionados con:
+- reciclaje
+- residuos
+- contaminación
+- medio ambiente
+- sostenibilidad
+
+Si preguntan algo diferente responde:
+'Solo puedo responder temas ambientales 🌱'
+
+Usuario:
+".$mensaje;
+
+/* =========================
+   DATOS
+========================= */
 
 $data = [
-    "contents" => [
+
+    "model" => "openai/gpt-3.5-turbo",
+
+    "messages" => [
+
         [
-            "parts" => [
-                ["text" => $prompt]
-            ]
+            "role" => "user",
+            "content" => $prompt
         ]
+
     ]
+
 ];
 
-$options = [
-    "http" => [
-        "header"  => "Content-Type: application/json",
-        "method"  => "POST",
-        "content" => json_encode($data),
-        "ignore_errors" => true
+/* =========================
+   CURL
+========================= */
+
+$ch = curl_init(
+    "https://openrouter.ai/api/v1/chat/completions"
+);
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+curl_setopt($ch, CURLOPT_POST, true);
+
+curl_setopt(
+    $ch,
+    CURLOPT_HTTPHEADER,
+    [
+
+        "Authorization: Bearer ".$apiKey,
+        "HTTP-Referer: http://localhost",
+        "X-Title: EcoBot",
+        "Content-Type: application/json"
+
     ]
-];
+);
 
-$response = file_get_contents($url, false, stream_context_create($options));
+curl_setopt(
+    $ch,
+    CURLOPT_POSTFIELDS,
+    json_encode($data)
+);
 
-// 🔥 DEBUG (CLAVE)
-if ($response === FALSE) {
-    echo json_encode(["respuesta" => "Error conectando con Gemini"]);
+curl_setopt(
+    $ch,
+    CURLOPT_SSL_VERIFYPEER,
+    false
+);
+
+$result = curl_exec($ch);
+
+/* =========================
+   ERROR CURL
+========================= */
+
+if(curl_errno($ch)){
+
+    echo json_encode([
+
+        "respuesta" =>
+        "ERROR CURL: ".curl_error($ch)
+
+    ]);
+
     exit;
 }
 
-$result = json_decode($response, true);
+curl_close($ch);
 
-// 🔥 MANEJO SEGURO DE RESPUESTA
-if (
-    isset($result["candidates"]) &&
-    isset($result["candidates"][0]["content"]["parts"][0]["text"])
-) {
-    $respuesta = $result["candidates"][0]["content"]["parts"][0]["text"];
-} else {
-    // 🔥 Mostrar error real (esto te ayuda mucho)
-    $respuesta = "Error real: " . json_encode($result);
+/* =========================
+   DEBUG RESPUESTA
+========================= */
+
+$response = json_decode($result, true);
+
+/* ERROR API */
+
+if(isset($response["error"])){
+
+    echo json_encode([
+
+        "respuesta" =>
+        "ERROR API: ".
+        $response["error"]["message"]
+
+    ]);
+
+    exit;
 }
 
-echo json_encode(["respuesta" => $respuesta]);
+/* RESPUESTA */
+
+$respuesta =
+$response["choices"][0]["message"]["content"]
+?? null;
+
+/* SI NO HAY RESPUESTA */
+
+if(!$respuesta){
+
+    echo json_encode([
+
+        "respuesta" =>
+        "La IA no devolvió respuesta.",
+
+        "debug" => $response
+
+    ]);
+
+    exit;
+}
+
+/* =========================
+   DEVOLVER
+========================= */
+
+echo json_encode([
+
+    "respuesta" => nl2br($respuesta)
+
+]);
+
+?>

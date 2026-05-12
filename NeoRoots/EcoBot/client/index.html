@@ -1,44 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Chatbot Moderno</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EcoBot</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-<h1>Mi Empresa de Residuos</h1>
+<div class="chat-container">
 
-<!-- BOTÓN FLOTANTE -->
-<div id="chatbot-toggle">
-  <span>💬</span>
-</div>
-
-<!-- CHAT -->
-<div id="chatbot-container">
-  
-  <div id="chatbot-header">
-    <div class="avatar">♻️</div>
-    <div>
-      <h4>EcoBot</h4>
-      <span>En línea</span>
+    <div class="chat-header">
+        🌱 EcoBot
     </div>
-    <button id="close-chat">✖</button>
-  </div>
 
-  <div id="chatbot-messages">
-    <div class="bot-message">
-      👋 Hola, ¿en qué puedo ayudarte con la recolección de residuos?
+    <div class="chat-messages" id="chatMessages">
+
+        <div class="message bot">
+            ¡Hola! 🌎<br><br>
+            Soy EcoBot, tu asistente ambiental.
+        </div>
+
     </div>
-  </div>
 
-  <div id="chatbot-input-area">
-    <input type="text" id="chatbot-input" placeholder="Escribe tu mensaje..." />
-    <button id="send-btn">➤</button>
-  </div>
+    <div class="chat-input">
+
+        <input type="text" id="userInput" placeholder="Escribe tu pregunta...">
+
+        <button onclick="sendMessage()">
+            Enviar
+        </button>
+
+    </div>
 
 </div>
 
-<script src="script.js"></script>
+<script>
+
+async function sendMessage(){
+
+    const input = document.getElementById("userInput");
+
+    const message = input.value.trim();
+
+    if(!message) return;
+
+    addMessage(message, "user");
+
+    input.value = "";
+
+    try{
+
+        const response = await fetch("chat.php", {
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+                mensaje:message
+            })
+
+        });
+
+        const data = await response.json();
+
+        addMessage(data.respuesta, "bot");
+
+    }catch(error){
+
+        addMessage("Error al conectar con el servidor.", "bot");
+
+    }
+
+}
+
+function addMessage(text, sender){
+
+    const chat = document.getElementById("chatMessages");
+
+    const div = document.createElement("div");
+
+    div.classList.add("message");
+    div.classList.add(sender);
+
+    div.innerHTML = text;
+
+    chat.appendChild(div);
+
+    chat.scrollTop = chat.scrollHeight;
+
+}
+
+</script>
+
 </body>
 </html>
