@@ -1,40 +1,97 @@
 #include "esp_camera.h"
 #include <WiFi.h>
 #include <WebServer.h>
+#include <ESPmDNS.h>
 
-// ===== CAMARA AI THINKER =====
 #define CAMERA_MODEL_AI_THINKER
 #include "camera_pins.h"
 
-const char* ssid = "NeoRootsCam";
-const char* password = "12345678";
+// =========================
+// WIFI
+// =========================
+const char* ssid = "SalaSistemas";
+const char* password = "c0L3g10s&%$";
 
 WebServer server(80);
 
+// =========================
+// CAPTURE
+// =========================
 void handleCapture() {
+
   camera_fb_t * fb = esp_camera_fb_get();
 
   if (!fb) {
-    server.send(500, "text/plain", "Error al capturar");
+    server.send(500, "text/plain", "Camera capture failed");
     return;
   }
 
-  WiFiClient client = server.client();
-
-  client.println("HTTP/1.1 200 OK");
-  client.println("Content-Type: image/jpeg");
-  client.println("Connection: close");
-  client.println();
-
-  client.write(fb->buf, fb->len);
+  server.sendHeader("Content-Type", "image/jpeg");
+  server.send_P(200, "image/jpeg", (const char *)fb->buf, fb->len);
 
   esp_camera_fb_return(fb);
 }
 
-void startCamera() {
+// =========================
+// STREAM
+// =========================
+void handleStream() {
+
+  WiFiClient client = server.client();
+
+  String response =
+    "HTTP/1.1 200 OK\r\n"
+    "Content-Type: multipart/x-mixed-replace; boundary=frame\r\n\r\n";
+
+  client.print(response);
+
+  while (client.connected()) {
+
+    camera_fb_t * fb = esp_camera_fb_get();
+
+    if (!fb) continue;
+
+    client.printf(
+      "--frame\r\n"
+      "Content-Type: image/jpeg\r\n"
+      "Content-Length: %u\r\n\r\n",
+      fb->len
+    );
+
+    client.write(fb->buf, fb->len);
+    client.print("\r\n");
+
+    esp_camera_fb_return(fb);
+
+    delay(50); // ~20 FPS
+  }
+}
+
+// =========================
+// SERVER
+// =========================
+void startCameraServer() {
+
+  server.on("/capture", HTTP_GET, handleCapture);
+  server.on("/stream", HTTP_GET, handleStream);
+
+  server.begin();
+
+  Serial.println("Servidor iniciado");
+}
+
+// =========================
+// SETUP
+// =========================
+void setup() {
+
+  Serial.begin(115200);
+
   camera_config_t config;
+
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
+
   config.pin_d0 = Y2_GPIO_NUM;
   config.pin_d1 = Y3_GPIO_NUM;
   config.pin_d2 = Y4_GPIO_NUM;
@@ -43,40 +100,66 @@ void startCamera() {
   config.pin_d5 = Y7_GPIO_NUM;
   config.pin_d6 = Y8_GPIO_NUM;
   config.pin_d7 = Y9_GPIO_NUM;
+
   config.pin_xclk = XCLK_GPIO_NUM;
   config.pin_pclk = PCLK_GPIO_NUM;
   config.pin_vsync = VSYNC_GPIO_NUM;
   config.pin_href = HREF_GPIO_NUM;
+
   config.pin_sccb_sda = SIOD_GPIO_NUM;
   config.pin_sccb_scl = SIOC_GPIO_NUM;
+
   config.pin_pwdn = PWDN_GPIO_NUM;
   config.pin_reset = RESET_GPIO_NUM;
+
   config.xclk_freq_hz = 20000000;
+
   config.pixel_format = PIXFORMAT_JPEG;
 
   config.frame_size = FRAMESIZE_VGA;
   config.jpeg_quality = 12;
   config.fb_count = 2;
 
-  esp_camera_init(&config);
-}
+  if (esp_camera_init(&config) != ESP_OK) {
+    Serial.println("Error iniciando cámara");
+    return;
+  }
 
-void setup() {
-  Serial.begin(115200);
+  // =========================
+  // WIFI
+  // =========================
+  WiFi.begin(ssid, password);
 
-  startCamera();
+  Serial.print("Conectando WiFi");
 
-  WiFi.softAP(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
 
-  Serial.println("NeoRootsCam lista");
+  Serial.println("");
+  Serial.println("WiFi conectado");
+
   Serial.print("IP: ");
-  Serial.println(WiFi.softAPIP());
-  Serial.print("EndPoint: /capture");
+  Serial.println(WiFi.localIP());
 
-  server.on("/capture", HTTP_GET, handleCapture);
-  server.begin();
+  // =========================
+  // MDNS
+  // =========================
+  if (MDNS.begin("neoroots-cam")) {
+    Serial.println("mDNS iniciado");
+  }
+
+  startCameraServer();
+
+  Serial.println("Listo:");
+  Serial.println("http://neoroots-cam.local/capture");
+  Serial.println("http://neoroots-cam.local/stream");
 }
 
+// =========================
+// LOOP
+// =========================
 void loop() {
   server.handleClient();
 }

@@ -1,34 +1,49 @@
 const contenedores = document.querySelectorAll('.contenedor');
 const noti = document.getElementById('notificacion');
 
-const CAM_URL = "http://192.168.4.1/capture";
+const CAM_CAPTURE = "http://neoroots-cam.local/capture";
+const CAM_STREAM = "http://neoroots-cam.local/stream";
 
+// ========================
+// STREAM EN VIVO
+// ========================
+const camara = document.getElementById("camara");
+
+camara.src = CAM_STREAM;
+
+// ========================
+// CLICK CONTENEDORES
+// ========================
 contenedores.forEach(c => {
-  c.addEventListener('click', async () => {
+
+  c.addEventListener('click', () => {
 
     const puntos = c.dataset.points;
+
     const ahora = new Date();
     const hora = ahora.toLocaleTimeString();
 
-    // animación click
+    // evitar cache
+    const imgURL =
+      CAM_CAPTURE + "?t=" + new Date().getTime();
+
+    // animación
     c.style.transform = "scale(0.95)";
+
     setTimeout(() => {
       c.style.transform = "scale(1)";
     }, 150);
 
-    try {
-      // tomar foto desde ESP32
-      const imgURL = CAM_URL + "?t=" + new Date().getTime();
-
-      noti.innerHTML = `
-        +${puntos} puntos | ${hora}<br>
-        <img src="${imgURL}" width="170" style="margin-top:10px; border-radius:10px;">
-      `;
-
-    } catch (error) {
-      noti.innerHTML = `+${puntos} puntos | ${hora}<br>Error al tomar foto`;
-      console.error(error);
-    }
+    // popup
+    noti.innerHTML = `
+      +${puntos} puntos | ${hora}<br>
+      <img src="${imgURL}"
+           width="180"
+           style="
+             margin-top:10px;
+             border-radius:10px;
+           ">
+    `;
 
     noti.classList.add('show');
 
@@ -37,10 +52,5 @@ contenedores.forEach(c => {
     }, 5000);
 
   });
+
 });
-
-const camara = document.getElementById("camara");
-
-setInterval(() => {
-  camara.src = "http://192.168.4.1/capture?t=" + new Date().getTime();
-}, 100);
