@@ -9,7 +9,7 @@ header("Content-Type: application/json");
    API KEY OPENROUTER
 ========================= */
 
-$apiKey = "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";
+$apiKey = "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";
 
 /* =========================
    MENSAJE
@@ -37,29 +37,36 @@ if(!$mensaje){
 
 $prompt = "
 
-Eres EcoBot, un chatbot ambiental.
+Eres EcoBot, un asistente virtual ambiental amigable.
 
-SOLO respondes temas relacionados con:
+Puedes:
+- saludar
+- despedirte
+- responder preguntas básicas de conversación
+
+Pero tu especialidad es:
 - reciclaje
 - residuos
 - contaminación
-- medio ambiente
 - sostenibilidad
+- cuidado ambiental
 
-Si preguntan algo diferente responde:
-'Solo puedo responder temas ambientales 🌱'
+Si el usuario pregunta algo completamente fuera de esos temas
+(como matemáticas, videojuegos, hacking, etc),
+responde amablemente:
+
+'Solo puedo ayudarte con temas ambientales 🌱'
+
+Responde de forma corta, clara y amigable.
 
 Usuario:
 ".$mensaje;
-
 /* =========================
    DATOS
 ========================= */
 
 $data = [
-
-    "model" => "openai/gpt-3.5-turbo",
-
+"model" => "openrouter/free",   
     "messages" => [
 
         [
