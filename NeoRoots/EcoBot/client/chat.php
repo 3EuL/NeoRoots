@@ -5,15 +5,15 @@ ini_set('display_errors', 1);
 
 header("Content-Type: application/json");
 
-/* =========================
+/* =========================================
    API KEY OPENROUTER
-========================= */
+========================================= */
 
-$apiKey = "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";
+$apiKey = "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";
 
-/* =========================
-   MENSAJE
-========================= */
+/* =========================================
+   RECIBIR MENSAJE
+========================================= */
 
 $input = json_decode(
     file_get_contents("php://input"),
@@ -21,6 +21,10 @@ $input = json_decode(
 );
 
 $mensaje = trim($input["mensaje"] ?? "");
+
+/* =========================================
+   VALIDAR MENSAJE
+========================================= */
 
 if(!$mensaje){
 
@@ -31,34 +35,49 @@ if(!$mensaje){
     exit;
 }
 
-/* =========================
-   PROMPT
-========================= */
+/* =========================================
+   PROMPT DEL BOT
+========================================= */
 
 $prompt = "
 
-Eres EcoBot, un chatbot ambiental.
+Eres EcoBot, un asistente virtual ambiental moderno y amigable.
 
-SOLO respondes temas relacionados con:
+Puedes:
+- saludar
+- despedirte
+- tener conversaciones básicas
+
+Tu especialidad es:
 - reciclaje
 - residuos
-- contaminación
-- medio ambiente
 - sostenibilidad
+- contaminación
+- cuidado ambiental
+- separación de basura
 
-Si preguntan algo diferente responde:
-'Solo puedo responder temas ambientales 🌱'
+Si el usuario pregunta algo completamente fuera de esos temas
+(como hacking, videojuegos, matemáticas, etc),
+responde solamente:
+
+Solo puedo ayudarte con temas ambientales 🌱
+
+IMPORTANTE:
+- Responde corto
+- Responde claro
+- Usa un tono amigable
+- Usa emojis ambientales ocasionalmente
 
 Usuario:
 ".$mensaje;
 
-/* =========================
-   DATOS
-========================= */
+/* =========================================
+   DATOS OPENROUTER
+========================================= */
 
 $data = [
 
-    "model" => "openai/gpt-3.5-turbo",
+    "model" => "openrouter/free",
 
     "messages" => [
 
@@ -71,9 +90,9 @@ $data = [
 
 ];
 
-/* =========================
+/* =========================================
    CURL
-========================= */
+========================================= */
 
 $ch = curl_init(
     "https://openrouter.ai/api/v1/chat/completions"
@@ -110,16 +129,16 @@ curl_setopt(
 
 $result = curl_exec($ch);
 
-/* =========================
+/* =========================================
    ERROR CURL
-========================= */
+========================================= */
 
 if(curl_errno($ch)){
 
     echo json_encode([
 
         "respuesta" =>
-        "ERROR CURL: ".curl_error($ch)
+        "Error CURL: ".curl_error($ch)
 
     ]);
 
@@ -128,20 +147,22 @@ if(curl_errno($ch)){
 
 curl_close($ch);
 
-/* =========================
-   DEBUG RESPUESTA
-========================= */
+/* =========================================
+   DECODIFICAR RESPUESTA
+========================================= */
 
 $response = json_decode($result, true);
 
-/* ERROR API */
+/* =========================================
+   ERROR API
+========================================= */
 
 if(isset($response["error"])){
 
     echo json_encode([
 
         "respuesta" =>
-        "ERROR API: ".
+        "Error API: ".
         $response["error"]["message"]
 
     ]);
@@ -149,31 +170,17 @@ if(isset($response["error"])){
     exit;
 }
 
-/* RESPUESTA */
+/* =========================================
+   RESPUESTA IA
+========================================= */
 
 $respuesta =
 $response["choices"][0]["message"]["content"]
-?? null;
+?? "No pude responder.";
 
-/* SI NO HAY RESPUESTA */
-
-if(!$respuesta){
-
-    echo json_encode([
-
-        "respuesta" =>
-        "La IA no devolvió respuesta.",
-
-        "debug" => $response
-
-    ]);
-
-    exit;
-}
-
-/* =========================
-   DEVOLVER
-========================= */
+/* =========================================
+   DEVOLVER RESPUESTA
+========================================= */
 
 echo json_encode([
 

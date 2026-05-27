@@ -1,99 +1,329 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EcoBot</title>
+    <meta charset="UTF-8">
 
-<link rel="stylesheet" href="style.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>EcoBot</title>
+
+    <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
 
-<div class="chat-container">
+<!-- =========================================
+     BOTÓN FLOTANTE
+========================================= -->
 
-    <div class="chat-header">
-        🌱 EcoBot
+<button id="chatbot-toggle">
+    🌱
+</button>
+
+<!-- =========================================
+     CHATBOT
+========================================= -->
+
+<div id="chatbot-container">
+
+    <!-- HEADER -->
+
+    <div id="chatbot-header">
+
+        <div class="chatbot-info">
+
+            <h2>EcoBot</h2>
+
+            <span>
+                Asistente ambiental inteligente
+            </span>
+
+        </div>
+
+        <button id="close-chat">
+            ✕
+        </button>
+
     </div>
 
-    <div class="chat-messages" id="chatMessages">
+    <!-- MENSAJES -->
 
-        <div class="message bot">
-            ¡Hola! 🌎<br><br>
-            Soy EcoBot, tu asistente ambiental.
+    <div id="chatbot-messages">
+
+        <div class="bot-message">
+
+            🌱 ¡Hola! Soy EcoBot.<br><br>
+
+            Estoy aquí para ayudarte con:
+            <br><br>
+
+            • Reciclaje ♻️<br>
+            • Residuos 🗑️<br>
+            • Contaminación 🌎<br>
+            • Sostenibilidad 🌿
+
         </div>
 
     </div>
 
-    <div class="chat-input">
+    <!-- INPUT -->
 
-        <input type="text" id="userInput" placeholder="Escribe tu pregunta...">
+    <div id="chatbot-input-area">
 
-        <button onclick="sendMessage()">
-            Enviar
+        <input
+            type="text"
+            id="chatbot-input"
+            placeholder="Escribe tu mensaje..."
+        >
+
+        <button
+            id="send-btn"
+            type="button"
+        >
+            ➤
         </button>
 
     </div>
 
 </div>
 
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
 <script>
 
-async function sendMessage(){
+const toggle =
+document.getElementById("chatbot-toggle");
 
-    const input = document.getElementById("userInput");
+const container =
+document.getElementById("chatbot-container");
 
-    const message = input.value.trim();
+const closeBtn =
+document.getElementById("close-chat");
 
-    if(!message) return;
+const sendBtn =
+document.getElementById("send-btn");
 
-    addMessage(message, "user");
+const input =
+document.getElementById("chatbot-input");
+
+const messages =
+document.getElementById("chatbot-messages");
+
+/* =========================================
+   ABRIR / CERRAR
+========================================= */
+
+toggle.onclick = () => {
+
+    if(
+        container.style.display === "flex"
+    ){
+
+        container.style.display = "none";
+
+    }else{
+
+        container.style.display = "flex";
+
+    }
+
+};
+
+closeBtn.onclick = () => {
+
+    container.style.display = "none";
+
+};
+
+/* =========================================
+   BOTÓN ENVIAR
+========================================= */
+
+sendBtn.onclick = enviar;
+
+/* =========================================
+   ENTER
+========================================= */
+
+input.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Enter"){
+
+            e.preventDefault();
+
+            enviar();
+
+        }
+
+    }
+);
+
+/* =========================================
+   ENVIAR MENSAJE
+========================================= */
+
+async function enviar(){
+
+    const texto =
+    input.value.trim();
+
+    if(!texto) return;
+
+    /* =========================
+       MENSAJE USUARIO
+    ========================= */
+
+    agregarMensaje(
+        texto,
+        "user-message"
+    );
 
     input.value = "";
 
+    /* =========================
+       ESCRIBIENDO...
+    ========================= */
+
+    const typing =
+    agregarMensaje(
+        "🌱 EcoBot está escribiendo...",
+        "bot-message"
+    );
+
     try{
 
-        const response = await fetch("chat.php", {
+        const res =
+        await fetch("chat.php", {
 
             method:"POST",
 
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":
+                "application/json"
             },
 
             body:JSON.stringify({
-                mensaje:message
+                mensaje:texto
             })
 
         });
 
-        const data = await response.json();
+        if(!res.ok){
 
-        addMessage(data.respuesta, "bot");
+            throw new Error(
+                "Error del servidor"
+            );
+
+        }
+
+        const data =
+        await res.json();
+
+        typing.remove();
+
+        let respuesta =
+        data.respuesta ||
+        "No pude responder.";
+
+        /* =========================
+           FORMATO BONITO
+        ========================= */
+
+        respuesta = respuesta
+
+        .replace(
+            /\*\*(.*?)\*\*/g,
+            "<b>$1</b>"
+        )
+
+        .replace(
+            /\n/g,
+            "<br>"
+        );
+
+        agregarMensajeHTML(
+            respuesta,
+            "bot-message"
+        );
 
     }catch(error){
 
-        addMessage("Error al conectar con el servidor.", "bot");
+        typing.remove();
+
+        agregarMensaje(
+            "❌ Error de conexión.",
+            "bot-message"
+        );
+
+        console.error(error);
 
     }
 
 }
 
-function addMessage(text, sender){
+/* =========================================
+   MENSAJE NORMAL
+========================================= */
 
-    const chat = document.getElementById("chatMessages");
+function agregarMensaje(
+    texto,
+    clase
+){
 
-    const div = document.createElement("div");
+    const div =
+    document.createElement("div");
 
-    div.classList.add("message");
-    div.classList.add(sender);
+    div.className = clase;
 
-    div.innerHTML = text;
+    div.innerText = texto;
 
-    chat.appendChild(div);
+    messages.appendChild(div);
 
-    chat.scrollTop = chat.scrollHeight;
+    scrollAbajo();
+
+    return div;
+
+}
+
+/* =========================================
+   MENSAJE HTML
+========================================= */
+
+function agregarMensajeHTML(
+    html,
+    clase
+){
+
+    const div =
+    document.createElement("div");
+
+    div.className = clase;
+
+    div.innerHTML = html;
+
+    messages.appendChild(div);
+
+    scrollAbajo();
+
+}
+
+/* =========================================
+   AUTO SCROLL
+========================================= */
+
+function scrollAbajo(){
+
+    messages.scrollTop =
+    messages.scrollHeight;
 
 }
 
