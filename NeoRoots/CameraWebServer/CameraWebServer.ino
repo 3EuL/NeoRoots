@@ -1,3 +1,4 @@
+#include <HTTPClient.h>
 #include "esp_camera.h"
 #include <WiFi.h>
 #include <WebServer.h>
@@ -9,8 +10,8 @@
 // =========================
 // WIFI
 // =========================
-const char* ssid = "SalaSistemas";
-const char* password = "c0L3g10s&%$";
+const char* ssid = "FamiliaUL";
+const char* password = "Thexxx1985$";
 
 WebServer server(80);
 
@@ -65,19 +66,6 @@ void handleStream() {
 
     delay(50); // ~20 FPS
   }
-}
-
-// =========================
-// SERVER
-// =========================
-void startCameraServer() {
-
-  server.on("/capture", HTTP_GET, handleCapture);
-  server.on("/stream", HTTP_GET, handleStream);
-
-  server.begin();
-
-  Serial.println("Servidor iniciado");
 }
 
 // =========================
@@ -137,6 +125,27 @@ void setup() {
     Serial.print(".");
   }
 
+  String ip = WiFi.localIP().toString();
+
+HTTPClient http;
+
+http.begin("http://192.168.1.9/NeoRoots/BackEnd/register_camera.php");
+
+http.addHeader(
+  "Content-Type",
+  "application/x-www-form-urlencoded"
+);
+
+String datos =
+  "name=NeoRootsCam&ip=" + ip;
+
+int codigo = http.POST(datos);
+
+Serial.print("Codigo registro: ");
+Serial.println(codigo);
+
+http.end();
+
   Serial.println("");
   Serial.println("WiFi conectado");
 
@@ -149,8 +158,6 @@ void setup() {
   if (MDNS.begin("neoroots-cam")) {
     Serial.println("mDNS iniciado");
   }
-
-  startCameraServer();
 
   Serial.println("Listo:");
   Serial.println("http://neoroots-cam.local/capture");
