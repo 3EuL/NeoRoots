@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include 'conexion.php';
 
 $name = $_POST['name'] ?? '';
@@ -19,8 +22,16 @@ ON DUPLICATE KEY UPDATE
     last_seen = CURRENT_TIMESTAMP
 ";
 
-$stmt = $conn->prepare($sql);
+$stmt = $conexion->prepare($sql);
+
+if (!$stmt) {
+    die("Error prepare: " . $conexion->error);
+}
+
 $stmt->bind_param("ss", $name, $ip);
-$stmt->execute();
+
+if (!$stmt->execute()) {
+    die("Error execute: " . $stmt->error);
+}
 
 echo "OK";
