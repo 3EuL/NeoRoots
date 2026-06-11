@@ -1,17 +1,17 @@
-/* RESET */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BODY */
+
 body {
   font-family: 'Poppins', sans-serif;
   background: #0b1f16;
 }
 
-/* CONTENEDOR */
+
 .container {
   height: 100vh;
   display: flex;
@@ -25,7 +25,6 @@ body {
   color: white;
 }
 
-/* OVERLAY */
 .container::before {
   content: "";
   position: absolute;
@@ -36,7 +35,7 @@ body {
   );
 }
 
-/* CONTENIDO */
+
 .contenido {
   position: relative;
   z-index: 2;
@@ -46,28 +45,27 @@ body {
   padding: 40px;
 }
 
-/* TÍTULO */
+
 .titulo {
   font-size: 64px;
   font-weight: 900;
   margin-bottom: 10px;
 }
 
-/* SUBTÍTULO */
+
 .subtitulo {
   font-size: 18px;
   color: #dcdcdc;
   margin-bottom: 50px;
 }
 
-/* GRID BOTONES */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
 
-/* TARJETAS */
+
 .card {
   text-decoration: none;
   color: white;
@@ -86,47 +84,44 @@ body {
   border: 2px solid rgba(255,255,255,0.2);
 }
 
-/* EFECTO HOVER */
+
 .card:hover {
   transform: translateY(-6px);
   box-shadow: 0 15px 30px rgba(0,0,0,0.4);
 }
 
-/* COLORES QUE COMBINAN CON NATURALEZA */
 
-/* Ranking (oro verde) */
 .ranking {
   background: linear-gradient(135deg, #2e7d32, #66bb6a);
 }
 
-/* Puntos (verde claro brillante) */
+
 .puntos {
   background: linear-gradient(135deg, #43a047, #a5d6a7);
   color: #0b1f16;
 }
 
-/* Escanear (verde oscuro moderno) */
+
 .escanear {
   background: linear-gradient(135deg, #1b5e20, #388e3c);
 }
 
-/* Ranking (oro verde) */
 .config {
   background: linear-gradient(135deg, #78af7b, #205c23);
 }
 
-/* Puntos (verde claro brillante) */
+
 .ecobot {
   background: linear-gradient(135deg, #43a047, #276d2a);
   color: #0b1f16;
 }
 
-/* Escanear (verde oscuro moderno) */
+
 .log-off {
   background: linear-gradient(135deg, #2d8a33, #1c501e);
 }
 
-/* RESPONSIVE */
+
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;

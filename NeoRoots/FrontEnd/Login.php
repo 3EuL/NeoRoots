@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Iniciar Sesión - NeoRoots</title>
-    <link rel="stylesheet" href="../CSS/Login_Register.css"> <!-- Ojo: Asegúrate de que esta ruta apunte a tu CSS -->
+    <link rel="stylesheet" href="../CSS/Login_Register.css"> 
 </head>
 <body>
 
-    <!-- Fondo y Contenedor Principal -->
     <div class="login-wrapper">
         
-        <!-- La Cajita de Cristal -->
+    
         <div class="login-box">
             <img src="../Assets/Logos/LogoProyecto.png" alt="NeoRoots Logo" class="login-logo">
             
-            <!-- Adiós al Bienvenidos, hola al diseño moderno -->
+        
             <h2>Accede a tu cuenta</h2>
             <p>Ingresa tus datos para continuar cuidando el planeta.</p>
 

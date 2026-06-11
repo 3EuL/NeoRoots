@@ -31,6 +31,7 @@ camara.src = "http://127.0.0.1:5000/video";
 
 let contenedorSeleccionado = null;
 let containerId = null;
+let ultimoObjeto = null;
 let ultimoObjetoPremiado = null;
 let puedePremiar = true;
 let consultando = false;
@@ -40,11 +41,8 @@ contenedores.forEach(c => {
 
     c.addEventListener("click", () => {
 
-        contenedores.forEach(x =>
-            x.style.border = "none"
-        );
-
-        c.style.border = "4px solid #28a745";
+        contenedores.forEach(x => x.classList.remove("activo"));
+        c.classList.add("activo");
 
         const titulo =
             c.querySelector("h2").innerText;
@@ -65,6 +63,22 @@ contenedores.forEach(c => {
         }
     });
 });
+
+function resetContenedores(){
+    contenedores.forEach(c => {
+        c.classList.remove("activo");
+    });
+}
+
+function resetResultado() {
+    resultado.className = "resultado";
+    resultado.innerHTML = `
+        <h2 style="color:#999;">Esperando escaneo...</h2>
+        <p style="color:#aaa;">
+            Acerca un objeto a la cámara
+        </p>
+    `;
+}
 
 
 function mostrarAnimacionPuntos(puntos) {
@@ -114,9 +128,12 @@ async function enviarPuntos(puntos, wasteId) {
 
 async function actualizarDeteccion() {
 
+
     if (consultando) return;
 
     consultando = true;
+
+    
 
     try {
 
@@ -125,12 +142,17 @@ async function actualizarDeteccion() {
 
         const data = await respuesta.json();
 
-        
-        if (data.object === "ninguno") {
+        if(ultimoObjeto !== data.object){
+            resetResultado();
+        }
 
-            estadoScan.innerText =
-                "🔍 Buscando objetos...";
+        ultimoObjeto = data.object;
 
+        if(data.object === "ninguno"){
+            document.getElementById("estadoScan").innerText =
+            "🔍 Buscando objetos...";
+
+            resetResultado(); 
             return;
         }
 

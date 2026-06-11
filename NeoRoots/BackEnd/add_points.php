@@ -44,9 +44,7 @@ mysqli_begin_transaction($conexion);
 
 try{
 
-    // =========================
-    // GUARDAR PUNTOS
-    // =========================
+    
 
     $sql = "
     INSERT INTO points
@@ -75,9 +73,7 @@ try{
 
     mysqli_stmt_execute($stmt);
 
-    // =========================
-    // REGISTRAR RECICLAJE
-    // =========================
+    
 
     $sql = "
     INSERT INTO recycling_log

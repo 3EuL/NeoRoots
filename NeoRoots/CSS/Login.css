@@ -224,3 +224,94 @@ svg{
         transform:translateX(0);
     }
 }
+@media (max-width: 768px) {
+
+    body {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .hub {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .data {
+        width: 100%;
+    }
+
+    input {
+        width: 100%; 
+    }
+
+    #Filler h1 {
+        font-size: 80px;
+        text-align: center;
+        margin-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .hub {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .data {
+        width: 100%;
+        gap: 10px;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    input[type="password"] {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        margin: 10px 0;
+        font-size: 14px;
+    }
+
+    #Filler h1 {
+        font-size: 45px;
+        text-align: center;
+        padding-right: 0;
+        margin-left: 0;
+    }
+
+    .tittle {
+        font-size: 18px;
+    }
+
+    .toast {
+        min-width: 180px;
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    #Filler h1 {
+        font-size: 38px;
+    }
+
+    .hub {
+        padding: 14px;
+    }
+
+    input[type="submit"] {
+        font-size: 13px;
+    }
+}

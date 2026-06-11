@@ -2,9 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const form = document.querySelector("#signInForm");
 
-    /* =========================
-    TOAST
-    ========================= */
+    
    function showToast(message, type = "success") {
     const container = document.getElementById("toastContainer");
 

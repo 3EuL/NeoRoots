@@ -70,7 +70,7 @@
 <section class="contact-section" id="Contacto">
     <div class="contact-container">
         
-        <!-- Lado Izquierdo: Información -->
+        
         <div class="contact-info">
             <h2>Ponte en Contacto</h2>
             <p>¿Listo para transformar la gestión de residuos en tu comunidad o empresa? Escríbenos y un experto de NeoRoots se comunicará contigo a la brevedad.</p>
@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <!-- Lado Derecho: Formulario -->
+        
         <div class="contact-form-container">
             <form action="#" class="contact-form">
                 <div class="input-group">

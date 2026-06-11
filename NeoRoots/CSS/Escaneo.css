@@ -167,6 +167,18 @@ body {
     animation: popPoints 1s ease-out;
 }
 
+.resultado {
+    transition: all 0.3s ease;
+}
+
+.contenedor.activo {
+    border: 4px solid #28a745;
+    transform: scale(1.05);
+    background: rgba(40, 167, 69, 0.9);
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.4);
+}
+
+
 @keyframes popPoints {
 
     0% {
