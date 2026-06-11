@@ -1,248 +1,111 @@
-const toggle =
-document.getElementById("chatbot-toggle");
+const sendBtn = document.getElementById("send-btn");
 
-const container =
-document.getElementById("chatbot-container");
+const input = document.getElementById("chatbot-input");
 
-const closeBtn =
-document.getElementById("close-chat");
+const messages = document.getElementById("chatbot-messages");
 
-const sendBtn =
-document.getElementById("send-btn");
+/* =========================
+   ENTER
+========================= */
 
-const input =
-document.getElementById("chatbot-input");
+input.addEventListener("keydown", function(e){
 
-const messages =
-document.getElementById("chatbot-messages");
+    if(e.key === "Enter"){
 
-/* =========================================
-   ABRIR / CERRAR CHAT
-========================================= */
+        e.preventDefault();
 
-toggle.onclick = () => {
-
-    if(container.style.display === "flex"){
-
-        container.style.display = "none";
-
-    }else{
-
-        container.style.display = "flex";
-
-        input.focus();
-
+        enviar();
     }
 
-};
+});
 
-closeBtn.onclick = () => {
+/* =========================
+   BOTÓN ENVIAR
+========================= */
 
-    container.style.display = "none";
+sendBtn.addEventListener("click", enviar);
 
-};
-
-/* =========================================
-   ENVIAR CON BOTÓN
-========================================= */
-
-sendBtn.onclick = enviar;
-
-/* =========================================
-   ENVIAR CON ENTER
-========================================= */
-
-input.addEventListener(
-    "keydown",
-    function(e){
-
-        if(e.key === "Enter"){
-
-            e.preventDefault();
-
-            enviar();
-
-        }
-
-    }
-);
-
-/* =========================================
+/* =========================
    FUNCIÓN ENVIAR
-========================================= */
+========================= */
 
-async function enviar(){
+function enviar(){
 
-    const texto =
-    input.value.trim();
+    const texto = input.value.trim();
 
     if(!texto) return;
 
-    /* =========================
-       MENSAJE USUARIO
-    ========================= */
+    /* MENSAJE USUARIO */
 
-    agregarMensaje(
-        texto,
-        "user-message"
-    );
+    const userMsg = document.createElement("div");
+
+    userMsg.className = "user-message";
+
+    userMsg.innerText = texto;
+
+    messages.appendChild(userMsg);
 
     input.value = "";
 
-    /* =========================
-       ESCRIBIENDO...
-    ========================= */
+    /* MENSAJE ESCRIBIENDO */
 
-    const typing =
-    agregarMensaje(
-        "🌱 EcoBot está escribiendo...",
-        "bot-message typing"
-    );
+    const typing = document.createElement("div");
 
-    try{
+    typing.className = "bot-message";
 
-        const res =
-        await fetch("chat.php", {
+    typing.innerText = "🌱 EcoBot está escribiendo...";
 
-            method:"POST",
+    messages.appendChild(typing);
 
-            headers:{
-                "Content-Type":
-                "application/json"
-            },
+    messages.scrollTop = messages.scrollHeight;
 
-            body:JSON.stringify({
-                mensaje:texto
-            })
+    /* CONSULTA PHP */
 
-        });
+    fetch("chat.php",{
 
-        /* =========================
-           ERROR SERVIDOR
-        ========================= */
+        method:"POST",
 
-        if(!res.ok){
+        headers:{
+            "Content-Type":"application/json"
+        },
 
-            throw new Error(
-                "Error del servidor"
-            );
+        body:JSON.stringify({
+            mensaje:texto
+        })
 
-        }
+    })
 
-        const data =
-        await res.json();
+    .then(response => response.json())
 
-        /* =========================
-           QUITAR ESCRIBIENDO
-        ========================= */
+    .then(data => {
 
         typing.remove();
 
-        /* =========================
-           RESPUESTA BOT
-        ========================= */
+        const botMsg = document.createElement("div");
 
-        let respuesta =
-        data.respuesta ||
-        "No pude responder.";
+        botMsg.className = "bot-message";
 
-        /* =========================
-           FORMATO BONITO
-        ========================= */
+        botMsg.innerText = data.respuesta;
 
-        respuesta = respuesta
+        messages.appendChild(botMsg);
 
-        // negritas markdown
-        .replace(
-            /\*\*(.*?)\*\*/g,
-            "<b>$1</b>"
-        )
+        messages.scrollTop = messages.scrollHeight;
 
-        // saltos de línea
-        .replace(
-            /\n/g,
-            "<br>"
-        )
+    })
 
-        // listas
-        .replace(
-            /^\- (.*$)/gim,
-            "• $1"
-        );
-
-        agregarMensajeHTML(
-            respuesta,
-            "bot-message"
-        );
-
-    }catch(error){
+    .catch(error => {
 
         typing.remove();
 
-        agregarMensaje(
-            "❌ Error de conexión con el servidor.",
-            "bot-message"
-        );
+        const botMsg = document.createElement("div");
 
-        console.error(error);
+        botMsg.className = "bot-message";
 
-    }
+        botMsg.innerText =
+        "⚠️ No pude conectarme con el servidor.";
 
-}
+        messages.appendChild(botMsg);
 
-/* =========================================
-   MENSAJE NORMAL
-========================================= */
-
-function agregarMensaje(
-    texto,
-    clase
-){
-
-    const div =
-    document.createElement("div");
-
-    div.className = clase;
-
-    div.innerText = texto;
-
-    messages.appendChild(div);
-
-    scrollAbajo();
-
-    return div;
-
-}
-
-/* =========================================
-   MENSAJE HTML
-========================================= */
-
-function agregarMensajeHTML(
-    html,
-    clase
-){
-
-    const div =
-    document.createElement("div");
-
-    div.className = clase;
-
-    div.innerHTML = html;
-
-    messages.appendChild(div);
-
-    scrollAbajo();
-
-}
-
-/* =========================================
-   AUTO SCROLL
-========================================= */
-
-function scrollAbajo(){
-
-    messages.scrollTop =
-    messages.scrollHeight;
+    });
 
 }

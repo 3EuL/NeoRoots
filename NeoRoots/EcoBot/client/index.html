@@ -1,333 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EcoBot</title>
+<title>EcoBot</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-<!-- =========================================
-     BOTÓN FLOTANTE
-========================================= -->
+<div class="app">
 
-<button id="chatbot-toggle">
-    🌱
-</button>
+    <!-- SIDEBAR -->
 
-<!-- =========================================
-     CHATBOT
-========================================= -->
+    <aside class="sidebar">
 
-<div id="chatbot-container">
+        <div class="logo">
 
-    <!-- HEADER -->
+            🌱 EcoBot
 
-    <div id="chatbot-header">
+        </div>
 
-        <div class="chatbot-info">
+        <div class="sidebar-info">
+
+            <h3>Asistente Ambiental</h3>
+
+            <p>
+                Especializado en:
+            </p>
+
+            <ul>
+
+                <li>♻️ Reciclaje</li>
+
+                <li>🌎 Medio Ambiente</li>
+
+                <li>🍃 Compostaje</li>
+
+                <li>🔋 Residuos Electrónicos</li>
+
+                <li>💧 Ahorro de Agua</li>
+
+                <li>⚡ Ahorro de Energía</li>
+
+            </ul>
+
+        </div>
+
+    </aside>
+
+    <!-- CHAT -->
+
+    <main class="chat-area">
+
+        <div class="chat-header">
 
             <h2>EcoBot</h2>
 
-            <span>
-                Asistente ambiental inteligente
-            </span>
+            <span>🌱 Tu asistente ambiental inteligente</span>
 
         </div>
 
-        <button id="close-chat">
-            ✕
-        </button>
+        <div id="chatbot-messages">
 
-    </div>
+            <div class="bot-message">
 
-    <!-- MENSAJES -->
+                ¡Hola! 🌱 Soy EcoBot.
 
-    <div id="chatbot-messages">
+                Estoy aquí para ayudarte con reciclaje,
+                sostenibilidad y cuidado del medio ambiente.
 
-        <div class="bot-message">
-
-            🌱 ¡Hola! Soy EcoBot.<br><br>
-
-            Estoy aquí para ayudarte con:
-            <br><br>
-
-            • Reciclaje ♻️<br>
-            • Residuos 🗑️<br>
-            • Contaminación 🌎<br>
-            • Sostenibilidad 🌿
+            </div>
 
         </div>
 
-    </div>
+        <div class="chat-input-area">
 
-    <!-- INPUT -->
+            <input
+                type="text"
+                id="chatbot-input"
+                placeholder="Escribe una pregunta ambiental..."
+            >
 
-    <div id="chatbot-input-area">
+            <button id="send-btn">
 
-        <input
-            type="text"
-            id="chatbot-input"
-            placeholder="Escribe tu mensaje..."
-        >
+                Enviar
 
-        <button
-            id="send-btn"
-            type="button"
-        >
-            ➤
-        </button>
+            </button>
 
-    </div>
+        </div>
+
+    </main>
 
 </div>
 
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
-
-<script>
-
-const toggle =
-document.getElementById("chatbot-toggle");
-
-const container =
-document.getElementById("chatbot-container");
-
-const closeBtn =
-document.getElementById("close-chat");
-
-const sendBtn =
-document.getElementById("send-btn");
-
-const input =
-document.getElementById("chatbot-input");
-
-const messages =
-document.getElementById("chatbot-messages");
-
-/* =========================================
-   ABRIR / CERRAR
-========================================= */
-
-toggle.onclick = () => {
-
-    if(
-        container.style.display === "flex"
-    ){
-
-        container.style.display = "none";
-
-    }else{
-
-        container.style.display = "flex";
-
-    }
-
-};
-
-closeBtn.onclick = () => {
-
-    container.style.display = "none";
-
-};
-
-/* =========================================
-   BOTÓN ENVIAR
-========================================= */
-
-sendBtn.onclick = enviar;
-
-/* =========================================
-   ENTER
-========================================= */
-
-input.addEventListener(
-    "keydown",
-    function(e){
-
-        if(e.key === "Enter"){
-
-            e.preventDefault();
-
-            enviar();
-
-        }
-
-    }
-);
-
-/* =========================================
-   ENVIAR MENSAJE
-========================================= */
-
-async function enviar(){
-
-    const texto =
-    input.value.trim();
-
-    if(!texto) return;
-
-    /* =========================
-       MENSAJE USUARIO
-    ========================= */
-
-    agregarMensaje(
-        texto,
-        "user-message"
-    );
-
-    input.value = "";
-
-    /* =========================
-       ESCRIBIENDO...
-    ========================= */
-
-    const typing =
-    agregarMensaje(
-        "🌱 EcoBot está escribiendo...",
-        "bot-message"
-    );
-
-    try{
-
-        const res =
-        await fetch("chat.php", {
-
-            method:"POST",
-
-            headers:{
-                "Content-Type":
-                "application/json"
-            },
-
-            body:JSON.stringify({
-                mensaje:texto
-            })
-
-        });
-
-        if(!res.ok){
-
-            throw new Error(
-                "Error del servidor"
-            );
-
-        }
-
-        const data =
-        await res.json();
-
-        typing.remove();
-
-        let respuesta =
-        data.respuesta ||
-        "No pude responder.";
-
-        /* =========================
-           FORMATO BONITO
-        ========================= */
-
-        respuesta = respuesta
-
-        .replace(
-            /\*\*(.*?)\*\*/g,
-            "<b>$1</b>"
-        )
-
-        .replace(
-            /\n/g,
-            "<br>"
-        );
-
-        agregarMensajeHTML(
-            respuesta,
-            "bot-message"
-        );
-
-    }catch(error){
-
-        typing.remove();
-
-        agregarMensaje(
-            "❌ Error de conexión.",
-            "bot-message"
-        );
-
-        console.error(error);
-
-    }
-
-}
-
-/* =========================================
-   MENSAJE NORMAL
-========================================= */
-
-function agregarMensaje(
-    texto,
-    clase
-){
-
-    const div =
-    document.createElement("div");
-
-    div.className = clase;
-
-    div.innerText = texto;
-
-    messages.appendChild(div);
-
-    scrollAbajo();
-
-    return div;
-
-}
-
-/* =========================================
-   MENSAJE HTML
-========================================= */
-
-function agregarMensajeHTML(
-    html,
-    clase
-){
-
-    const div =
-    document.createElement("div");
-
-    div.className = clase;
-
-    div.innerHTML = html;
-
-    messages.appendChild(div);
-
-    scrollAbajo();
-
-}
-
-/* =========================================
-   AUTO SCROLL
-========================================= */
-
-function scrollAbajo(){
-
-    messages.scrollTop =
-    messages.scrollHeight;
-
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
+
 </html>
