@@ -10,27 +10,23 @@
 </head>
 
 <body>
-
+<div id="animacionPuntos" class="animacion-puntos"></div>
 <div class="container">
 
     <div class="contenido">
 
-        <!-- TÍTULO PRINCIPAL -->
+        
         <h1 class="titulo">🌿 </h1>
         <p class="subtitulo">Selecciona una actividad para continuar</p>
 
-        <!-- BOTONES -->
+        
         <div class="grid">
 
             <a href="Ranking.php" class="card ranking">
                 🏆 <span>Ranking</span>
             </a>
 
-            <a href="/puntos" class="card puntos">
-                ⭐ <span>Puntos</span>
-            </a>
-
-            <a href="/escanear" class="card escanear">
+            <a href="Escaneo.php" class="card escanear">
                 📷 <span>Escanear</span>
             </a>
 
