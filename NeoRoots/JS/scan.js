@@ -1,56 +1,221 @@
-const contenedores = document.querySelectorAll('.contenedor');
-const noti = document.getElementById('notificacion');
+const contenedores =
+document.querySelectorAll(".contenedor");
 
-const CAM_CAPTURE = "http://neoroots-cam.local/capture";
-const CAM_STREAM = "http://neoroots-cam.local/stream";
+const resultado =
+document.getElementById("resultado");
 
-// ========================
-// STREAM EN VIVO
-// ========================
-const camara = document.getElementById("camara");
+const noti =
+document.getElementById("notificacion");
 
-camara.src = CAM_STREAM;
+const camara =
+document.getElementById("camara");
 
-// ========================
-// CLICK CONTENEDORES
-// ========================
+const estadoScan =
+document.getElementById("estadoScan");
+
+const puntosUsuario =
+document.getElementById("puntosUsuario");
+
+
+const WASTE_IDS = {
+    "bottle": 1,
+    "book": 2,
+    "cup": 3,
+    "cell phone": 4,
+    "wine glass": 5
+};
+
+
+camara.src = "http://127.0.0.1:5000/video";
+
+
+let contenedorSeleccionado = null;
+let containerId = null;
+let ultimoObjetoPremiado = null;
+let puedePremiar = true;
+let consultando = false;
+
+
 contenedores.forEach(c => {
 
-  c.addEventListener('click', () => {
+    c.addEventListener("click", () => {
 
-    const puntos = c.dataset.points;
+        contenedores.forEach(x =>
+            x.style.border = "none"
+        );
 
-    const ahora = new Date();
-    const hora = ahora.toLocaleTimeString();
+        c.style.border = "4px solid #28a745";
 
-    // evitar cache
-    const imgURL =
-      CAM_CAPTURE + "?t=" + new Date().getTime();
+        const titulo =
+            c.querySelector("h2").innerText;
 
-    // animación
-    c.style.transform = "scale(0.95)";
+        if (titulo.includes("Plástico")) {
+            contenedorSeleccionado = "plastic";
+            containerId = 18;
+        }
 
-    setTimeout(() => {
-      c.style.transform = "scale(1)";
-    }, 150);
+        else if (titulo.includes("Papel")) {
+            contenedorSeleccionado = "paper";
+            containerId = 16;
+        }
 
-    // popup
-    noti.innerHTML = `
-      +${puntos} puntos | ${hora}<br>
-      <img src="${imgURL}"
-           width="180"
-           style="
-             margin-top:10px;
-             border-radius:10px;
-           ">
-    `;
-
-    noti.classList.add('show');
-
-    setTimeout(() => {
-      noti.classList.remove('show');
-    }, 5000);
-
-  });
-
+        else if (titulo.includes("Vidrio")) {
+            contenedorSeleccionado = "glass";
+            containerId = 19;
+        }
+    });
 });
+
+
+function mostrarAnimacionPuntos(puntos) {
+
+    const anim =
+        document.getElementById("animacionPuntos");
+
+    if (!anim) return;
+
+    anim.innerText = `+${puntos} XP`;
+
+    anim.classList.remove("show");
+
+    void anim.offsetWidth;
+
+    anim.classList.add("show");
+}
+
+
+async function enviarPuntos(puntos, wasteId) {
+
+    const formData = new FormData();
+
+    formData.append("points", puntos);
+    formData.append("container_id", containerId);
+    formData.append("waste_id", wasteId);
+
+    try {
+
+        const respuesta = await fetch(
+            "../BackEnd/add_points.php",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        const data = await respuesta.json();
+
+        console.log("Respuesta backend:", data);
+
+    } catch (error) {
+        console.log("Error enviando puntos:", error);
+    }
+}
+
+
+async function actualizarDeteccion() {
+
+    if (consultando) return;
+
+    consultando = true;
+
+    try {
+
+        const respuesta =
+            await fetch("http://127.0.0.1:5000/ultima_deteccion");
+
+        const data = await respuesta.json();
+
+        
+        if (data.object === "ninguno") {
+
+            estadoScan.innerText =
+                "🔍 Buscando objetos...";
+
+            return;
+        }
+
+        let estado = "Seleccione un contenedor";
+        let clase = "";
+
+        
+        if (contenedorSeleccionado) {
+
+            if (data.material === contenedorSeleccionado) {
+
+                estado = "✓ RECICLAJE CORRECTO";
+                clase = "correcto";
+
+                const wasteId = WASTE_IDS[data.object];
+
+                if (
+                    puedePremiar &&
+                    wasteId &&
+                    ultimoObjetoPremiado !== data.object
+                ) {
+
+                    puedePremiar = false;
+                    ultimoObjetoPremiado = data.object;
+
+                    enviarPuntos(data.points, wasteId);
+                    mostrarAnimacionPuntos(data.points);
+
+                    setTimeout(() => {
+                        puedePremiar = true;
+                    }, 4000);
+                }
+
+            } else {
+
+                estado = "✗ CONTENEDOR INCORRECTO";
+                clase = "incorrecto";
+            }
+        }
+
+        
+        let html = `
+            <p><strong>Objeto:</strong> ${data.object}</p>
+            <p><strong>Confianza:</strong> ${data.confidence}</p>
+        `;
+
+        if (contenedorSeleccionado) {
+
+            html += `
+                <h2>${estado}</h2>
+                <p><strong>Puntos:</strong> ${data.points}</p>
+            `;
+        }
+
+        resultado.className = "resultado " + clase;
+        resultado.innerHTML = html;
+
+    } catch (error) {
+        console.log(error);
+    } finally {
+        consultando = false;
+    }
+}
+
+
+async function actualizarPuntos() {
+
+    try {
+
+        const res =
+            await fetch("../BackEnd/get_points.php");
+
+        const data = await res.json();
+
+        if (data.success) {
+
+            puntosUsuario.innerText =
+                data.total;
+        }
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+setInterval(actualizarDeteccion, 600);
+setInterval(actualizarPuntos, 2000);
