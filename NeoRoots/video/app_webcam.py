@@ -96,16 +96,8 @@ print("Webcam OK")
 # =========================
 # SERVO
 # =========================
-def mover_servo(material):
-
-    if material == "plastic":
-        arduino.write(b'V')
-
-    elif material == "paper":
-        arduino.write(b'B')
-
-    elif material == "glass":
-        arduino.write(b'N')
+def mover_servo():
+    arduino.write(b'V')
 
 # =========================
 # THREAD: CAPTURA
@@ -217,21 +209,6 @@ def procesar_yolo():
                 "confidence": round(mejor_confianza, 2)
             }
 
-        # =========================
-        # 🔥 FIX SERVO (IMPORTANTE)
-        # =========================
-        print("MATERIAL DETECTADO:", mejor_material)
-        if mejor_material != "unknown":
-
-            if mejor_material != ultimo_material_enviado:
-                mover_servo(mejor_material)
-# RUTAS
-                print("MANDANDO A ARDUINO:", material)
-                ultimo_material_enviado = mejor_material
-
-# =========================
-# RUTAS
-# =========================
 @app.route("/")
 def index():
     return """
@@ -244,11 +221,16 @@ def index():
 def obtener():
     return jsonify(ultima_deteccion)
 
-@app.route("/test")
-def test():
-    arduino.write(b'V')
-    return jsonify({"ok": True})
+@app.route("/mover_servo")
+def mover_servo_web():
 
+    print("MOVIENDO SERVO")
+
+    mover_servo()
+
+    return jsonify({
+        "ok": True
+    })
 # =========================
 # VIDEO STREAM
 # =========================

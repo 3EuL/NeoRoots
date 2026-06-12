@@ -401,53 +401,98 @@
   <div class="col-md-8">
 
     <div class="card" style="
-        background: rgba(0, 50, 20, 0.45);
-        backdrop-filter: blur(12px);
-        border-radius: 15px;
-        border: 1px solid rgba(0,255,100,0.2);
-    ">
+    background: rgba(0, 50, 20, 0.45);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid rgba(0,255,100,0.2);
+    color: #e8f5e9;
+">
 
-      <div class="card-body">
+  <div class="card-body">
 
-        <h3 class="text-center mb-4">🏆 Ranking de Usuarios</h3>
+    <h3 class="text-center mb-4">🏆 Ranking de Usuarios</h3>
 
-        <?php
-        $players = [
-            ["nombre" => "Juan", "puntos" => 1200],
-            ["nombre" => "Ana", "puntos" => 950],
-            ["nombre" => "Luis", "puntos" => 800],
-            ["nombre" => "Carlos", "puntos" => 600],
-            ["nombre" => "Sofía", "puntos" => 500],
-        ];
+    <?php
+    require_once("../../BackEnd/conexion.php");
 
-        usort($players, fn($a, $b) => $b['puntos'] - $a['puntos']);
+    $sql = "
+    SELECT 
+        u.user_id,
+        u.user,
+        u.pfp,
+        COALESCE(SUM(p.amount),0) AS puntos
+    FROM users u
+    LEFT JOIN points p ON u.user_id = p.user_id
+    WHERE u.rol = 'usuario'
+    GROUP BY u.user_id, u.user, u.pfp
+    ORDER BY puntos DESC
+    ";
+
+    $result = mysqli_query($conexion, $sql);
+
+    $players = [];
+
+    while($row = mysqli_fetch_assoc($result)){
+        $players[] = $row;
+    }
+    ?>
+
+    <table class="table text-center" style="color: #e8f5e9;">
+      <thead style="color: #9be7a1;">
+        <tr>
+          <th>Posición</th>
+          <th>Usuario</th>
+          <th>Puntos</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <?php foreach ($players as $index => $player):
+
+            $pos = $index + 1;
+
+            $img = !empty($player['pfp'])
+                ? "../ASSETS/ProfilePictures/" . $player['pfp']
+                : "../ASSETS/ProfilePictures/default.png";
         ?>
 
-        <table class="table text-center" style="color: #e8f5e9;">
-          <thead style="color: #9be7a1;">
-            <tr>
-              <th>Posición</th>
-              <th>Usuario</th>
-              <th>Puntos</th>
-            </tr>
-          </thead>
+        <tr style="transition:0.3s;">
+          
+          <td>
+            <?= $pos == 1 ? "🥇" : ($pos == 2 ? "🥈" : ($pos == 3 ? "🥉" : $pos)) ?>
+          </td>
 
-          <tbody>
-            <?php foreach ($players as $index => $player): 
-              $pos = $index + 1;
-            ?>
-            <tr style="transition:0.3s;">
-              <td>
-                <?= $pos == 1 ? "🥇" : ($pos == 2 ? "🥈" : ($pos == 3 ? "🥉" : $pos)) ?>
-              </td>
-              <td><?= $player['nombre'] ?></td>
-              <td><?= $player['puntos'] ?></td>
-            </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+          <td style="display:flex; align-items:center; gap:10px; justify-content:center;">
+            
+            <img src="<?= $img ?>"
+                 onerror="this.src='../ASSETS/ProfilePictures/default.png'"
+                 style="
+                    width:35px;
+                    height:35px;
+                    border-radius:50%;
+                    object-fit:cover;
+                 ">
 
-      </div>
+            <?= htmlspecialchars($player['user']) ?>
+
+          </td>
+
+          <td>
+            <span style="color:#7CFF8A; font-weight:bold;">
+                <?= $player['puntos'] ?> pts
+            </span>
+          </td>
+
+        </tr>
+
+        <?php endforeach; ?>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
     </div>
 
   </div>
@@ -711,6 +756,7 @@
       const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
       sparkline3.render();
     </script>
+    
     <!--end::Script-->
   </body>
   <!--end::Body-->

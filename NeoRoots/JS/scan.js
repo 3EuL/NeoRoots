@@ -32,10 +32,12 @@ camara.src = "http://127.0.0.1:5000/video";
 let contenedorSeleccionado = null;
 let containerId = null;
 let ultimoObjeto = null;
+let servoActivado = false;
 let ultimoObjetoPremiado = null;
 let puedePremiar = true;
 let consultando = false;
-
+let tiempoSinObjeto = 0;
+let timeoutInactividad = null;
 
 contenedores.forEach(c => {
 
@@ -43,6 +45,15 @@ contenedores.forEach(c => {
 
         contenedores.forEach(x => x.classList.remove("activo"));
         c.classList.add("activo");
+
+        clearTimeout(timeoutInactividad);
+
+            timeoutInactividad = setTimeout(() => {
+
+            resetResultado();
+            resetContenedores();
+
+        }, 5000);
 
         const titulo =
             c.querySelector("h2").innerText;
@@ -65,13 +76,19 @@ contenedores.forEach(c => {
 });
 
 function resetContenedores(){
+
     contenedores.forEach(c => {
         c.classList.remove("activo");
     });
+
+    contenedorSeleccionado = null;
+    containerId = null;
 }
 
 function resetResultado() {
+
     resultado.className = "resultado";
+
     resultado.innerHTML = `
         <h2 style="color:#999;">Esperando escaneo...</h2>
         <p style="color:#aaa;">
@@ -143,18 +160,34 @@ async function actualizarDeteccion() {
         const data = await respuesta.json();
 
         if(ultimoObjeto !== data.object){
-            resetResultado();
+            servoActivado = false;
         }
 
         ultimoObjeto = data.object;
 
         if(data.object === "ninguno"){
-            document.getElementById("estadoScan").innerText =
+
+            estadoScan.innerText =
             "🔍 Buscando objetos...";
 
-            resetResultado(); 
-            return;
+            tiempoSinObjeto += 600;
+
+        if(
+            contenedorSeleccionado &&
+            tiempoSinObjeto >= 5000
+        ){
+
+            resetResultado();
+            resetContenedores();
+
+            contenedorSeleccionado = null;
+            containerId = null;
+
+            tiempoSinObjeto = 0;
         }
+
+        return;
+    }
 
         let estado = "Seleccione un contenedor";
         let clase = "";
@@ -164,10 +197,29 @@ async function actualizarDeteccion() {
 
             if (data.material === contenedorSeleccionado) {
 
-                estado = "✓ RECICLAJE CORRECTO";
-                clase = "correcto";
+            estado = "✓ RECICLAJE CORRECTO";
+            clase = "correcto";
 
-                const wasteId = WASTE_IDS[data.object];
+            if (!servoActivado) {
+
+                servoActivado = true;
+
+                fetch("http://127.0.0.1:5000/mover_servo")
+                    .catch(error => console.log(error));
+
+                setTimeout(() => {
+
+                    resetContenedores();
+
+                    contenedorSeleccionado = null;
+
+                    containerId = null;
+
+                }, 2500);
+            }
+            
+
+            const wasteId = WASTE_IDS[data.object];
 
                 if (
                     puedePremiar &&
@@ -182,6 +234,16 @@ async function actualizarDeteccion() {
                     mostrarAnimacionPuntos(data.points);
 
                     setTimeout(() => {
+
+                        resetResultado();
+                        resetContenedores();
+
+                        contenedorSeleccionado = null;
+                        containerId = null;
+
+                    }, 2500);
+
+                    setTimeout(() => {
                         puedePremiar = true;
                     }, 4000);
                 }
@@ -190,6 +252,15 @@ async function actualizarDeteccion() {
 
                 estado = "✗ CONTENEDOR INCORRECTO";
                 clase = "incorrecto";
+                setTimeout(() => {
+
+                    resetResultado();
+                    resetContenedores();
+
+                    contenedorSeleccionado = null;
+                    containerId = null;
+
+                }, 2500);
             }
         }
 

@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
-    background: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') no-repeat center/cover;
+    background: url('https://images.pexels.com/photos/1572036/pexels-photo-1572036.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260') no-repeat center/cover;
     color: white;
 }
 
@@ -244,4 +244,16 @@ a:hover{
     .points_top3 {
         font-size: 14px;
     }
+}
+
+.info img{
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid rgba(255,255,255,.2);
 }
